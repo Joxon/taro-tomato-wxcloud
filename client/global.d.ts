@@ -9,6 +9,9 @@ declare module "*.scss";
 declare module "*.sass";
 declare module "*.styl";
 
+declare module 'taro-icons'
+declare module '@tarojs/mobx'
+
 // @ts-ignore
 declare const process: {
   env: {

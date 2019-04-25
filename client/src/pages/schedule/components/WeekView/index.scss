@@ -1,0 +1,62 @@
+.week-view {
+  .header {
+    display: flex;
+    font-size: small;
+
+    .header-left {
+      flex: 1;
+      border-bottom: 1px solid black;
+    }
+
+    .header-right {
+      flex: 7;
+      display: flex;
+      border-bottom: 1px solid black;
+
+      .header-right-column {
+        flex: 1;
+        text-align: center;
+      }
+
+      .header-today {
+        border-radius: 60%;
+        background-color: salmon;
+        color: white;
+      }
+    }
+  }
+
+  .content {
+    .content-row {
+      display: flex;
+      height: 100rpx;
+
+      .time-cell {
+        flex: 1;
+        font-size: 18rpx;
+        text-align: end;
+        color: darkgray;
+        border-right: 1px solid black;
+      }
+
+      .tasks-row {
+        flex: 7;
+        display: flex;
+        background-color: white;
+
+        .task-cell {
+          flex: 1;
+          border-right: 1px dashed darkgray;
+          border-bottom: 1px dashed darkgray;
+
+          .task-card {
+            height: 100%;
+            font-size: 30rpx;
+            color: white;
+            background: lightcoral;
+          }
+        }
+      }
+    }
+  }
+}

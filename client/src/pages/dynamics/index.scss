@@ -1,0 +1,35 @@
+.dynamics-wrapper {
+  .top-view {
+    background-color: white;
+    margin: 20rpx 20rpx;
+    padding: 10rpx 10rpx;
+    border-radius: 50rpx;
+
+    .info {
+      margin: 50rpx 100rpx;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .avatar {
+        flex: 1;
+      }
+
+      .user-name {
+        flex: 2;
+        text-align: center;
+        font-size: 48rpx;
+        color: #333;
+      }
+    }
+  }
+
+  .list-view {
+    .title {
+      text-align: center;
+      color: #333;
+      font-size: 28rpx;
+      margin-bottom: 20rpx;
+    }
+  }
+}
