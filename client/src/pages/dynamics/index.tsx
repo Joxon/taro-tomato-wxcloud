@@ -25,6 +25,10 @@ const gridData: Item[] = [
 ]
 
 export default class Dynamics extends Component<{}, IState> {
+  config: Taro.Config = {
+    enablePullDownRefresh: true
+  }
+
   static defaultState: IState = {
     posts: DEFAULT_POSTS
   }

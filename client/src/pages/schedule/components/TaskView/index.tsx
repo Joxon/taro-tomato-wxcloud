@@ -2,9 +2,10 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import { AtCard } from 'taro-ui'
 
-import { ITask, IDay } from '../../index.d'
+import { ITask } from '../../index.d'
 import TaskCard from '../TaskCard'
 import { parseTimeToNumber } from '../../utils'
+import { RECENT_WEEKDAYS } from '../../constants'
 
 import './index.scss'
 
@@ -12,14 +13,12 @@ import './index.scss'
 // https://reactjs.org/docs/typechecking-with-proptypes.html
 interface IProps {
   tasks: ITask[]
-  recentWeekdays: IDay[]
 }
 
 export default class TaskView extends Component<IProps, {}> {
   // 此处要加static，否则微信端报错
   static defaultProps: IProps = {
-    tasks: [],
-    recentWeekdays: []
+    tasks: []
   }
 
   navigateToTaskAdd () {
@@ -41,7 +40,7 @@ export default class TaskView extends Component<IProps, {}> {
     //   </View>
     // )
 
-    const { tasks, recentWeekdays } = this.props
+    const { tasks } = this.props
 
     const d = new Date()
     const h = d.getHours()
@@ -52,15 +51,15 @@ export default class TaskView extends Component<IProps, {}> {
       <View className='task-view'>
         {tasks.length === 0
           ? vTaskEmpty
-          : recentWeekdays.map(day => (
+          : RECENT_WEEKDAYS.map(day => (
             <View className='task-weekday' key={day.weekday}>
               <Text>
                 {`${day.date} ${day.weekdayName} ${
-                  day.weekday === recentWeekdays[0].weekday
+                  day.weekday === RECENT_WEEKDAYS[0].weekday
                     ? '今天'
-                    : day.weekday === recentWeekdays[1].weekday
+                    : day.weekday === RECENT_WEEKDAYS[1].weekday
                       ? '明天'
-                      : day.weekday === recentWeekdays[2].weekday
+                      : day.weekday === RECENT_WEEKDAYS[2].weekday
                         ? '后天'
                         : ''
                 }`}
@@ -86,7 +85,7 @@ export default class TaskView extends Component<IProps, {}> {
                           showStartTime
                           // 任务属于今天，而且当前时间在任务规定时间内
                           showTomatoClockButton={
-                            day.weekday === recentWeekdays[0].weekday &&
+                            day.weekday === RECENT_WEEKDAYS[0].weekday &&
                             parseTimeToNumber({
                               hour: task.startHour,
                               minute: task.startMinute

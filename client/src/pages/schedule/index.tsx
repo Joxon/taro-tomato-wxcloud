@@ -10,10 +10,11 @@ import { FontAwesome } from 'taro-icons'
 //   FontAwesome,
 // } from 'taro-icons'
 
-import { TWeekday, ITask, IDay, ITab } from './index.d'
+import { TWeekday, ITask, ITab } from './index.d'
 import TaskView from './components/TaskView'
 import WeekView from './components/WeekView'
-import { WEEKDAYS, DEFAULT_TASK_LIST } from './constants'
+import { RECENT_WEEKDAYS } from './constants'
+import { getUserFields } from '../../utils'
 
 import './index.scss'
 
@@ -31,51 +32,38 @@ interface IState {
 const TABLIST: ITab[] = [{ title: '日程视图' }, { title: '一周视图' }]
 
 export default class Schedule extends Component<{}, IState> {
+  config: Taro.Config = {
+    enablePullDownRefresh: true
+  }
+
   static defaultState: IState = {
-    today: 'Mon',
+    today: RECENT_WEEKDAYS[0].weekday,
     viewMode: EViewMode.TASK_VIEW,
-    tasks: DEFAULT_TASK_LIST
+    tasks: []
   }
 
   state: IState = Schedule.defaultState
 
-  recentWeekdays: IDay[]
-
-  getRecentWeekdays (): IDay[] {
-    const weekdays: IDay[] = []
-
-    const d = new Date()
-
-    // !!getDay返回0-6
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getDay#Return_value
-    // An integer number, between 0 and 6,
-    // corresponding to the day of the week for the given date,
-    // according to local time:
-    // 0 for Sunday, 1 for Monday, 2 for Tuesday, and so on.
-    const todaysIndexTemp = d.getDay() - 1
-    const todaysIndex = todaysIndexTemp === -1 ? 6 : todaysIndexTemp
-
-    for (let i = 0; i < WEEKDAYS.length; ++i) {
-      const day = WEEKDAYS[(i + todaysIndex) % WEEKDAYS.length]
-
-      const daysMonth = d.getMonth() + 1 // getMonth返回0-11
-      const daysDay = d.getDate() // getDate返回1-31
-
-      day.date = `${daysMonth}-${daysDay}`
-      weekdays.push(day)
-
-      d.setDate(d.getDate() + 1)
-    }
-
-    return weekdays
+  getTasks () {
+    getUserFields({ tasks: true }).then(fields => {
+      const tasks = (fields as any).tasks as ITask[]
+      if (Array.isArray(tasks) && tasks.length !== 0) {
+        this.setState({ tasks })
+      }
+    })
   }
 
-  componentWillMount () {
-    this.recentWeekdays = this.getRecentWeekdays()
+  onPullDownRefresh () {
+    this.getTasks()
   }
 
   componentDidMount () {
-    // TODO 获取远端数据
+    this.getTasks()
+  }
+
+  // 添加任务后返回本页面，自动刷新
+  componentDidShow () {
+    this.getTasks()
   }
 
   handleViewSwitching (index: number) {
@@ -91,7 +79,6 @@ export default class Schedule extends Component<{}, IState> {
 
   render () {
     const { viewMode, tasks } = this.state
-    const { recentWeekdays } = this
 
     return (
       <View className='schedule-wrapper'>
@@ -101,10 +88,10 @@ export default class Schedule extends Component<{}, IState> {
           onClick={this.handleViewSwitching}
         >
           <AtTabsPane current={viewMode} index={EViewMode.TASK_VIEW}>
-            <TaskView tasks={tasks} recentWeekdays={recentWeekdays} />
+            <TaskView tasks={tasks} />
           </AtTabsPane>
           <AtTabsPane current={viewMode} index={EViewMode.WEEK_VIEW}>
-            <WeekView tasks={tasks} recentWeekdays={recentWeekdays} />
+            <WeekView tasks={tasks} />
           </AtTabsPane>
         </AtTabs>
 

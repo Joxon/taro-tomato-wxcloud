@@ -78,7 +78,18 @@ class App extends Taro.Component {
 
   componentDidMount () {
     if (process.env.TARO_ENV === 'weapp') {
-      Taro.cloud.init()
+      // https://developers.weixin.qq.com/miniprogram/dev/wxcloud/guide/console.html
+      // 在用户管理中会显示使用云能力的小程序的访问用户列表，默认以访问时间倒叙排列
+      // 访问时间的触发点是在小程序端调用 wx.cloud.init 方法，且其中的 traceUser 参数传值为 true。
+      Taro.cloud.init({
+        env: 'dev-i1tq4',
+        traceUser: true
+      })
+      // Taro.cloud.callFunction({
+      //   name: 'login',
+      //   data: {},
+      //   success: res => console.log(res)
+      // })
     }
   }
 

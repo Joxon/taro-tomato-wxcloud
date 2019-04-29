@@ -1,0 +1,16 @@
+[
+  {
+    "name": "task",
+    "value": {
+      "task": {
+        "name": "task",
+        "weekday": "Mon",
+        "startHour": "08",
+        "startMinute": "00",
+        "endHour": "09",
+        "endMinute": "00",
+        "tomatoBonus": 10
+      }
+    }
+  }
+]

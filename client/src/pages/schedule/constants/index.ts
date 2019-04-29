@@ -1,6 +1,6 @@
 import { ITask, IDay, THour, TMinute } from '../index.d'
 
-export const DEFAULT_TASK_LIST: ITask[] = [
+export const DEFAULT_TASKS: ITask[] = [
   {
     id: '1',
     name: '写作业',
@@ -235,3 +235,34 @@ export const TIME: [THour[], TMinute[]] = [
     '59'
   ]
 ]
+
+const getRecentWeekdays: () => IDay[] = () => {
+  const weekdays: IDay[] = []
+
+  const d = new Date()
+
+  // !!getDay返回0-6
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getDay#Return_value
+  // An integer number, between 0 and 6,
+  // corresponding to the day of the week for the given date,
+  // according to local time:
+  // 0 for Sunday, 1 for Monday, 2 for Tuesday, and so on.
+  const todaysIndexTemp = d.getDay() - 1
+  const todaysIndex = todaysIndexTemp === -1 ? 6 : todaysIndexTemp
+
+  for (let i = 0; i < WEEKDAYS.length; ++i) {
+    const day = WEEKDAYS[(i + todaysIndex) % WEEKDAYS.length]
+
+    const daysMonth = d.getMonth() + 1 // getMonth返回0-11
+    const daysDay = d.getDate() // getDate返回1-31
+
+    day.date = `${daysMonth}-${daysDay}`
+    weekdays.push(day)
+
+    d.setDate(d.getDate() + 1)
+  }
+
+  return weekdays
+}
+
+export const RECENT_WEEKDAYS: IDay[] = getRecentWeekdays()

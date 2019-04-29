@@ -1,0 +1,12 @@
+[
+  {
+    "name": "tomatoFields",
+    "value": {
+      "fields": {
+        "records": true,
+        "dailyItems": true,
+        "rewardItems": true
+      }
+    }
+  }
+]

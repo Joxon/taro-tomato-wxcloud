@@ -2,7 +2,7 @@
   "extends": ["taro", "standard"],
   "rules": {
     "import/prefer-default-export": "off",
-    "no-unused-vars": ["warn", { "varsIgnorePattern": "Taro" }],
+    "no-unused-vars": ["off", { "varsIgnorePattern": "Taro" }],
     "react/jsx-filename-extension": [
       "warn",
       { "extensions": [".js", ".jsx", ".tsx"] }

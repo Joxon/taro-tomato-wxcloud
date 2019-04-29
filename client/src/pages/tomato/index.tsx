@@ -28,6 +28,10 @@ const gridData: Item[] = [
 ]
 
 export default class Tomato extends Component<{}, IState> {
+  config: Taro.Config = {
+    enablePullDownRefresh: true
+  }
+
   static defaultState: IState = {
     records: DEFAULT_RECORDS,
     tomato: 100,

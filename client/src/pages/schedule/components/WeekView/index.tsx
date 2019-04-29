@@ -2,22 +2,20 @@ import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 
 import TaskCard from '../TaskCard'
-import { ITask, IDay, TWeekday, THour } from '../../index.d'
-import { WEEKDAYS, TIME } from '../../constants'
+import { ITask, TWeekday, THour } from '../../index.d'
+import { WEEKDAYS, TIME, RECENT_WEEKDAYS } from '../../constants'
 import { parseHourToString } from '../../utils'
 
 import './index.scss'
 
 interface IProps {
   tasks: ITask[]
-  recentWeekdays: IDay[]
 }
 
 export default class WeekView extends Component<IProps, {}> {
   // 此处要加static，否则微信端报错
   static defaultProps: IProps = {
-    tasks: [],
-    recentWeekdays: WEEKDAYS
+    tasks: []
   }
 
   readonly ROWS_HOUR: THour[] = TIME[0]
@@ -25,7 +23,7 @@ export default class WeekView extends Component<IProps, {}> {
   readonly COLS_WDAY: TWeekday[] = WEEKDAYS.map(day => day.weekday)
 
   render () {
-    const { tasks, recentWeekdays } = this.props
+    const { tasks } = this.props
     return (
       <View className='week-view'>
         <View className='header'>
@@ -34,7 +32,7 @@ export default class WeekView extends Component<IProps, {}> {
             {WEEKDAYS.map(wDay => (
               <View
                 className={`header-right-column ${
-                  wDay.weekday === recentWeekdays[0].weekday
+                  wDay.weekday === RECENT_WEEKDAYS[0].weekday
                     ? 'header-today'
                     : 'header-not-today'
                 }`}
@@ -43,7 +41,7 @@ export default class WeekView extends Component<IProps, {}> {
                 <View>{wDay.weekdayName}</View>
                 <View>
                   {
-                    recentWeekdays.filter(
+                    RECENT_WEEKDAYS.filter(
                       rDay => rDay.weekday === wDay.weekday
                     )[0].date
                   }

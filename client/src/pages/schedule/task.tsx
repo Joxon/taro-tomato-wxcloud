@@ -4,10 +4,10 @@ import {
   PickerTimeProps,
   PickerSelectorProps
 } from '@tarojs/components/types/Picker'
-import { BaseEventOrig, CommonEvent } from '@tarojs/components/types/common'
+import { BaseEventOrig } from '@tarojs/components/types/common'
 import { AtButton, AtForm, AtInput, AtInputNumber } from 'taro-ui'
 
-import { TWeekday, THour, TMinute } from './index.d'
+import { THour, TMinute, ITask } from './index.d'
 import { DEFAULT_TASK, WEEKDAYS } from './constants'
 import { parseTimeToNumber } from './utils'
 
@@ -15,18 +15,13 @@ type TPageMode = 'add' | 'edit'
 
 interface IState {
   mode: TPageMode // task
-  id?: string // ITask
   name: string // ITask
-  weekday: TWeekday // ITask
   weekdayName: string // task
   weekdayIndex: number // task
-  startHour: THour // ITask
-  startMinute: TMinute // ITask
   startTime: string // hh:mm, task
-  endHour: THour // ITask
-  endMinute: TMinute // ITask
   endTime: string // hh:mm, task
   tomatoBonus: number // ITask
+  submitButtonClicked: boolean // task
 }
 
 export default class TaskPage extends Component<{}, IState> {
@@ -37,19 +32,17 @@ export default class TaskPage extends Component<{}, IState> {
   static defaultState: IState = {
     mode: 'add',
     name: DEFAULT_TASK.name,
-    weekday: DEFAULT_TASK.weekday,
     weekdayName: '周一',
     weekdayIndex: 0,
-    startHour: DEFAULT_TASK.startHour,
-    startMinute: DEFAULT_TASK.startMinute,
     startTime: `${DEFAULT_TASK.startHour}:${DEFAULT_TASK.startMinute}`,
-    endHour: DEFAULT_TASK.endHour,
-    endMinute: DEFAULT_TASK.endMinute,
     endTime: `${DEFAULT_TASK.endHour}:${DEFAULT_TASK.endMinute}`,
-    tomatoBonus: DEFAULT_TASK.tomatoBonus
+    tomatoBonus: DEFAULT_TASK.tomatoBonus,
+    submitButtonClicked: false
   }
 
   state: IState = TaskPage.defaultState
+
+  task: ITask = DEFAULT_TASK
 
   componentWillMount () {
     // console.log('params: ')
@@ -57,7 +50,7 @@ export default class TaskPage extends Component<{}, IState> {
     // console.log('preload: ')
     // console.log(this.$router.preload)
 
-    const preload: IState = this.$router.preload
+    const preload = this.$router.preload
     if (preload.mode === 'edit') {
       const weekdayIndex = WEEKDAYS.map(day => day.weekday).indexOf(
         preload.weekday
@@ -76,26 +69,67 @@ export default class TaskPage extends Component<{}, IState> {
     }
   }
 
-  onSubmit (event: CommonEvent) {
-    console.log(event)
-    console.log(this.state)
+  addTask () {
+    ;(Taro.cloud.callFunction({
+      name: 'addTask',
+      data: { task: this.task }
+    }) as Promise<Taro.cloud.ICloud.CallFunctionResult>)
+      .then(response => {
+        this.setState({ submitButtonClicked: false })
+        if ((response.result as any).stats.updated === 1) {
+          Taro.showToast({
+            title: `添加成功`,
+            icon: 'success',
+            duration: 1000
+          })
+          setTimeout(() => {
+            Taro.navigateBack()
+          }, 1000)
+        } else {
+          Taro.showToast({ title: `添加失败，请重试`, icon: 'none' })
+          console.error(response)
+        }
+      })
+      .catch(err => console.error(err))
   }
 
-  onReset (event: any) {
-    console.log(event)
+  editTask () {}
+
+  deleteTask () {}
+
+  // @param event: CommonEvent
+  onSubmit () {
+    const { mode, ...task } = this.state
+    if (task.name === '') {
+      Taro.showToast({ title: '任务名不能为空', icon: 'none' })
+      return
+    }
+
+    this.setState({ submitButtonClicked: true })
+    if (mode === 'add') {
+      this.addTask()
+    } else if (mode === 'edit') {
+      this.editTask()
+    }
+  }
+
+  // @param event: CommonEvent
+  onReset () {
+    this.task = DEFAULT_TASK
     this.setState(TaskPage.defaultState)
   }
 
   handleNameInput (name: string) {
+    this.task.name = name
     this.setState({ name })
   }
 
   handleWeekdayPicker (event: BaseEventOrig<PickerSelectorProps>) {
     const val: number = event.detail.value
 
+    this.task.weekday = WEEKDAYS[val].weekday
     this.setState({
       weekdayIndex: val,
-      weekday: WEEKDAYS[val].weekday,
       weekdayName: WEEKDAYS[val].weekdayName
     })
   }
@@ -125,13 +159,13 @@ export default class TaskPage extends Component<{}, IState> {
         : startHour
     const endTime = `${endHour}:${endMinute}`
 
+    this.task.startHour = startHour
+    this.task.startMinute = startMinute
+    this.task.endHour = endHour
+    this.task.endMinute = endMinute
     this.setState({
       startTime,
-      startHour,
-      startMinute,
-      endTime,
-      endHour,
-      endMinute
+      endTime
     })
   }
 
@@ -156,28 +190,20 @@ export default class TaskPage extends Component<{}, IState> {
       const endTimeParts = endTime.split(':')
       const endHour = endTimeParts[0] as THour
       const endMinute = endTimeParts[1] as TMinute
-      this.setState({ endTime, endHour, endMinute })
+
+      this.task.endHour = endHour
+      this.task.endMinute = endMinute
+      this.setState({ endTime })
     }
   }
 
   handleTomatoInputNumber (tomatoBonus: number) {
-    this.setState({
-      tomatoBonus
-    })
+    this.task.tomatoBonus = tomatoBonus
+    this.setState({ tomatoBonus })
   }
 
-  // redirectToTomatoClock (task: ITask) {
-  //   this.$preload({
-  //     name: task.name,
-  //     tomatoBonus: task.tomatoBonus
-  //   })
-  //   Taro.navigateTo({
-  //     url: `tomatoClock`
-  //   })
-  // }
-
   render () {
-    const { mode, ...task } = this.state
+    const { mode, submitButtonClicked, ...task } = this.state
 
     const taskNameInput = (
       <AtInput
@@ -259,7 +285,11 @@ export default class TaskPage extends Component<{}, IState> {
     const buttons =
       mode === 'add' ? (
         <View>
-          <AtButton type='primary' formType='submit'>
+          <AtButton
+            type='primary'
+            formType='submit'
+            loading={submitButtonClicked}
+          >
             添加任务
           </AtButton>
           <AtButton type='secondary' formType='reset'>
@@ -268,15 +298,13 @@ export default class TaskPage extends Component<{}, IState> {
         </View>
       ) : (
         <View>
-          <AtButton type='primary' formType='submit'>
+          <AtButton
+            type='primary'
+            formType='submit'
+            loading={submitButtonClicked}
+          >
             保存任务
           </AtButton>
-          {/* <AtButton
-            type='secondary'
-            onClick={this.redirectToTomatoClock.bind(this, task)}
-          >
-            启动番茄钟
-          </AtButton> */}
           <AtButton type='secondary'>删除任务</AtButton>
         </View>
       )

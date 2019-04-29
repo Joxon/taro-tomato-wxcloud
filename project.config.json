@@ -3,15 +3,22 @@
 	"cloudfunctionRoot": "cloud/functions/",
 	"projectname": "taro-tomato-wxcloud",
 	"description": "",
-	"appid": "wx6fa8cd0d103f4a3c",
+	"appid": "wxfc85af0644b80dce",
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": false,
 		"postcss": false,
-		"minified": false
+		"minified": false,
+		"newFeature": true,
+		"nodeModules": false,
+		"autoAudits": false,
+		"uglifyFileName": false,
+		"checkInvalidKey": true
 	},
 	"compileType": "miniprogram",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
+	"libVersion": "2.6.6",
+	"cloudfunctionTemplateRoot": "cloudfunctionTemplate",
 	"condition": {}
 }
