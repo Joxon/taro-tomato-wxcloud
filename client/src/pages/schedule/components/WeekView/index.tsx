@@ -65,7 +65,7 @@ export default class WeekView extends Component<IProps, {}> {
                       task.weekday === wday && task.startHour === hour ? (
                         <View
                           className='task-card'
-                          key={wday + hour + task.name}
+                          key={task.id}
                         >
                           <TaskCard task={task} showStartTime={false} />
                         </View>

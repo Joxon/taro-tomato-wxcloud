@@ -6,7 +6,7 @@ cloud.init({
 const db = cloud.database()
 const users = db.collection('users')
 
-exports.main = async(event, context) => {
+exports.main = async (event, context) => {
   try {
     const {
       OPENID
@@ -23,14 +23,10 @@ exports.main = async(event, context) => {
     const len = result.data.length
     if (len === 1) {
       const tasks = result.data[0].tasks
-      const taskNew = event.task
+      const taskToDelete = event.task
 
-      // 修改原数组
-      // items[items.findIndex(el => el.id === item.id)] = item;
-      // 新建一个数组
-      // items.map(el=> el.id === item.id? item : el)
-      const taskIndex = tasks.findIndex(task => task.id === taskNew.id)
-      tasks[taskIndex] = taskNew
+      const taskIndex = tasks.findIndex(task => task.id === taskToDelete.id)
+      tasks.splice(taskIndex, 1)
 
       return await user.update({
         data: {
@@ -39,7 +35,7 @@ exports.main = async(event, context) => {
       })
 
     } else {
-      throw Error('editTask: invalid data.length = ', len)
+      throw Error('deleteTask: invalid data.length = ', len)
     }
   } catch (e) {
     console.error(e)

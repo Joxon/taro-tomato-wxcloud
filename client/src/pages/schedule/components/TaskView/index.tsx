@@ -78,7 +78,7 @@ export default class TaskView extends Component<IProps, {}> {
                     task.weekday === day.weekday ? (
                       <View
                         className='task-card'
-                        key={task.weekday + task.startHour + task.name}
+                        key={`${task.id}`}
                       >
                         <TaskCard
                           task={task}

@@ -14,14 +14,13 @@ import { parseTimeToNumber } from './utils'
 type TPageMode = 'add' | 'edit'
 
 interface IState {
-  mode: TPageMode // task
-  name: string // ITask
-  weekdayName: string // task
-  weekdayIndex: number // task
-  startTime: string // hh:mm, task
-  endTime: string // hh:mm, task
-  tomatoBonus: number // ITask
-  submitButtonClicked: boolean // task
+  mode: TPageMode // UI
+  name: string // data
+  weekdayName: string // UI
+  weekdayIndex: number // UI
+  startTime: string // hh:mm, UI
+  endTime: string // hh:mm, UI
+  tomatoBonus: number // data
 }
 
 export default class TaskPage extends Component<{}, IState> {
@@ -36,8 +35,7 @@ export default class TaskPage extends Component<{}, IState> {
     weekdayIndex: 0,
     startTime: `${DEFAULT_TASK.startHour}:${DEFAULT_TASK.startMinute}`,
     endTime: `${DEFAULT_TASK.endHour}:${DEFAULT_TASK.endMinute}`,
-    tomatoBonus: DEFAULT_TASK.tomatoBonus,
-    submitButtonClicked: false
+    tomatoBonus: DEFAULT_TASK.tomatoBonus
   }
 
   state: IState = TaskPage.defaultState
@@ -45,40 +43,59 @@ export default class TaskPage extends Component<{}, IState> {
   task: ITask = DEFAULT_TASK
 
   componentWillMount () {
+    // task?foo=bar
     // console.log('params: ')
     // console.log(this.$router.params)
+
+    // this.$preload({ foo: 'bar })
     // console.log('preload: ')
     // console.log(this.$router.preload)
+    interface IPreload extends ITask {
+      mode: TPageMode
+    }
+    const { mode, ...task }: IPreload = this.$router.preload
+    if (mode === 'edit') {
+      // 设置数据层表单ID，最终提交的是表单task的数据
+      this.task = task
 
-    const preload = this.$router.preload
-    if (preload.mode === 'edit') {
+      // 设置UI表单
       const weekdayIndex = WEEKDAYS.map(day => day.weekday).indexOf(
-        preload.weekday
+        task.weekday
       )
       const weekdayName = WEEKDAYS[weekdayIndex].weekdayName
-      const startTime = `${preload.startHour}:${preload.startMinute}`
-      const endTime = `${preload.endHour}:${preload.endMinute}`
+      const startTime = `${task.startHour}:${task.startMinute}`
+      const endTime = `${task.endHour}:${task.endMinute}`
 
       this.setState({
-        ...preload,
+        mode,
+        name: task.name,
         weekdayIndex,
         weekdayName,
         startTime,
-        endTime
+        endTime,
+        tomatoBonus: task.tomatoBonus
       })
     }
   }
 
-  addTask () {
+  callTaskFunction (verb: string, verbName: string): void {
+    // 防止用户重复点击
+    Taro.showLoading({
+      title: '处理中...',
+      mask: true
+    })
+
+    // 提交数据
     ;(Taro.cloud.callFunction({
-      name: 'addTask',
+      name: `${verb}Task`,
       data: { task: this.task }
     }) as Promise<Taro.cloud.ICloud.CallFunctionResult>)
+      // 收到响应
       .then(response => {
-        this.setState({ submitButtonClicked: false })
         if ((response.result as any).stats.updated === 1) {
+          // 响应格式正确
           Taro.showToast({
-            title: `添加成功`,
+            title: `${verbName}成功`,
             icon: 'success',
             duration: 1000
           })
@@ -86,16 +103,34 @@ export default class TaskPage extends Component<{}, IState> {
             Taro.navigateBack()
           }, 1000)
         } else {
-          Taro.showToast({ title: `添加失败，请重试`, icon: 'none' })
+          // 响应格式错误
+          Taro.hideLoading()
+          Taro.showToast({
+            title: `${verbName}失败：响应格式错误`,
+            icon: 'none'
+          })
           console.error(response)
         }
       })
-      .catch(err => console.error(err))
+      // 请求出错
+      .catch(error => {
+        Taro.hideLoading()
+        Taro.showToast({ title: `${verbName}失败：响应超时`, icon: 'none' })
+        console.error(error)
+      })
   }
 
-  editTask () {}
-
-  deleteTask () {}
+  onDelete () {
+    Taro.showModal({
+      title: '删除',
+      content: '确定删除这个任务？',
+      success: res => {
+        if (res.confirm) {
+          this.callTaskFunction('delete', '删除')
+        }
+      }
+    })
+  }
 
   // @param event: CommonEvent
   onSubmit () {
@@ -105,12 +140,17 @@ export default class TaskPage extends Component<{}, IState> {
       return
     }
 
-    this.setState({ submitButtonClicked: true })
+    // 禁止用户重复点击，避免生成多个请求
+    // this.setState({ submitButtonClicked: true })
+
+    // 准备请求
+    const verb = mode
+    const verbName = mode === 'add' ? '添加' : '修改'
     if (mode === 'add') {
-      this.addTask()
-    } else if (mode === 'edit') {
-      this.editTask()
+      // 小程序端生成ID
+      this.task.id = '' + new Date().valueOf()
     }
+    this.callTaskFunction(verb, verbName)
   }
 
   // @param event: CommonEvent
@@ -203,7 +243,7 @@ export default class TaskPage extends Component<{}, IState> {
   }
 
   render () {
-    const { mode, submitButtonClicked, ...task } = this.state
+    const { mode, ...task } = this.state
 
     const taskNameInput = (
       <AtInput
@@ -285,11 +325,7 @@ export default class TaskPage extends Component<{}, IState> {
     const buttons =
       mode === 'add' ? (
         <View>
-          <AtButton
-            type='primary'
-            formType='submit'
-            loading={submitButtonClicked}
-          >
+          <AtButton type='primary' formType='submit'>
             添加任务
           </AtButton>
           <AtButton type='secondary' formType='reset'>
@@ -298,14 +334,12 @@ export default class TaskPage extends Component<{}, IState> {
         </View>
       ) : (
         <View>
-          <AtButton
-            type='primary'
-            formType='submit'
-            loading={submitButtonClicked}
-          >
+          <AtButton type='primary' formType='submit'>
             保存任务
           </AtButton>
-          <AtButton type='secondary'>删除任务</AtButton>
+          <AtButton type='secondary' onClick={this.onDelete}>
+            删除任务
+          </AtButton>
         </View>
       )
 

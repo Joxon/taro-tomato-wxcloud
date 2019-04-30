@@ -47,9 +47,7 @@ export default class Schedule extends Component<{}, IState> {
   getTasks () {
     getUserFields({ tasks: true }).then(fields => {
       const tasks = (fields as any).tasks as ITask[]
-      if (Array.isArray(tasks) && tasks.length !== 0) {
-        this.setState({ tasks })
-      }
+      this.setState({ tasks })
     })
   }
 
