@@ -7,11 +7,11 @@ const db = cloud.database()
 const users = db.collection('users')
 
 exports.main = async(event, context) => {
-  const {
-    OPENID
-  } = cloud.getWXContext()
-
   try {
+    const {
+      OPENID
+    } = cloud.getWXContext()
+
     const result = await users.where({
       "_openid": OPENID
     }).get()

@@ -6,6 +6,13 @@ cloud.init({
 const db = cloud.database()
 const users = db.collection('users')
 
+// index.js 是入口文件，云函数被调用时会执行该文件导出的 main 方法
+// event 包含了调用端（小程序端）调用该函数时传过来的参数，
+// 同时还包含了可以通过 getWXContext 方法获取的用户登录态 `openId` 和小程序 `appId` 信息
+// 云函数的传入参数有两个，一个是 event 对象，一个是 context 对象。
+// event 指的是触发云函数的事件，当小程序端调用云函数时，
+// event 就是小程序端调用云函数时传入的参数，外加后端自动注入的小程序用户的 openid 和小程序的 appid。
+// context 对象包含了此处调用的调用信息和运行状态，可以用它来了解服务运行的情况。
 exports.main = async(event, context) => {
   // *********************************************
   // 可获取的三种字段
@@ -48,32 +55,39 @@ exports.main = async(event, context) => {
     } else if (len === 0) {
       // 没有命中记录，自动注册
       // 默认配置
-      const defaultData = {
+      const id = new Date().valueOf().toString()
+      const newUser = {
+        // ID
         _openid: OPENID,
-        age: '3',
-        classId: null,
+        // Schedule
+        tasks: [],
+        secondsToRest: 300,
+        secondsToWork: 1800,
+        // Tomato
+        tomato: 0,
+        records: [],
         dailyItems: [{
+          id,
           name: '睡懒觉',
           tomato: -10
         }],
-        records: [],
         rewardItems: [{
+          id,
           name: '看电视一小时',
           tomato: -10
         }],
-        secondsToRest: 300,
-        secondsToWork: 1800,
-        sex: 'M',
-        tasks: [],
-        tomato: 0
+        // Dynamics
+        classId: null,
+        age: '3',
+        sex: 'M'
       }
       // 添加新用户信息，不等待添加完成
       users.add({
-        data: defaultData
+        data: newUser
       })
       // 直接返回默认配置，无需再次查询数据库
       return {
-        data: [defaultData],
+        data: [newUser],
         errMsg: 'login: new user registered'
       }
     } else {

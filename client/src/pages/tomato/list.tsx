@@ -3,8 +3,8 @@ import { View } from '@tarojs/components'
 import { AtList, AtListItem } from 'taro-ui'
 import { FontAwesome } from 'taro-icons'
 
+import { getUserFields } from '../../utils'
 import { IListItem } from './index.d'
-import { DEFAULT_DAILY_ITEMS, DEFAULT_REWARD_ITEMS } from './constants'
 
 import './list.scss'
 
@@ -29,20 +29,32 @@ export default class TomatoList extends Component<{}, IState> {
   state: IState = TomatoList.defaultState
   preload: IPreload
 
-  componentWillMount () {
-    this.preload = this.$router.preload
+  getItems () {
     const { mode } = this.preload
     if (mode === 'daily') {
-      this.setState({
-        items: DEFAULT_DAILY_ITEMS
+      getUserFields({ dailyItems: true }).then(fields => {
+        const dailyItems = (fields as any).dailyItems as IListItem[]
+        this.setState({ items: dailyItems })
       })
     } else if (mode === 'reward') {
-      this.setState({
-        items: DEFAULT_REWARD_ITEMS
+      getUserFields({ rewardItems: true }).then(fields => {
+        const rewardItems = (fields as any).rewardItems as IListItem[]
+        this.setState({ items: rewardItems })
       })
-    } else {
-      Taro.showToast({ title: '模式传参错误' })
     }
+  }
+
+  componentWillMount () {
+    this.preload = this.$router.preload
+    this.getItems()
+  }
+
+  componentDidMount () {
+    this.getItems()
+  }
+
+  componentDidShow () {
+    this.getItems()
   }
 
   navigateToItemEdit (item: IListItem) {

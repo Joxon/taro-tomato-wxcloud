@@ -8,6 +8,7 @@ export interface IRecord {
 }
 
 export interface IListItem {
+  id: string
   name: string
   tomato: number
 }

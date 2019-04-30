@@ -29,10 +29,12 @@ export const DEFAULT_RECORDS: IRecord[] = [
 
 export const DEFAULT_REWARD_ITEMS: IListItem[] = [
   {
+    id: '0',
     name: '玩电脑一小时',
     tomato: -10
   },
   {
+    id: '1',
     name: '看电视一小时',
     tomato: -10
   }
@@ -40,15 +42,24 @@ export const DEFAULT_REWARD_ITEMS: IListItem[] = [
 
 export const DEFAULT_DAILY_ITEMS: IListItem[] = [
   {
+    id: '0',
     name: '睡懒觉',
     tomato: -10
   },
   {
+    id: '1',
     name: '闹脾气',
     tomato: -10
   },
   {
+    id: '2',
     name: '考试第一名',
     tomato: 10
   }
 ]
+
+export const DEFAULT_ITEM: IListItem = {
+  id: '',
+  name: '',
+  tomato: 10
+}

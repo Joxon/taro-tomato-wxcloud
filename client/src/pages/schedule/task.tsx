@@ -23,6 +23,10 @@ interface IState {
   tomatoBonus: number // data
 }
 
+interface IPreload extends ITask {
+  mode: TPageMode
+}
+
 export default class TaskPage extends Component<{}, IState> {
   config: Config = {
     navigationBarTitleText: '任务详情'
@@ -50,9 +54,7 @@ export default class TaskPage extends Component<{}, IState> {
     // this.$preload({ foo: 'bar })
     // console.log('preload: ')
     // console.log(this.$router.preload)
-    interface IPreload extends ITask {
-      mode: TPageMode
-    }
+
     const { mode, ...task }: IPreload = this.$router.preload
     if (mode === 'edit') {
       // 设置数据层表单ID，最终提交的是表单task的数据
@@ -78,7 +80,7 @@ export default class TaskPage extends Component<{}, IState> {
     }
   }
 
-  callTaskFunction (verb: string, verbName: string): void {
+  callTaskFunction (verb: 'add' | 'edit' | 'delete', verbName: string): void {
     // 防止用户重复点击
     Taro.showLoading({
       title: '处理中...',
