@@ -6,6 +6,7 @@ import { Item } from 'taro-ui/@types/grid'
 import { IRecord } from './index.d'
 import { DEFAULT_RECORDS } from './constants'
 import { toTitleString } from './utils'
+import { getUserFields } from '../../utils'
 
 import TOMATO_PNG from './images/tomato.png'
 import './index.scss'
@@ -40,6 +41,26 @@ export default class Tomato extends Component<{}, IState> {
 
   state: IState = Tomato.defaultState
 
+  getInfo () {
+    getUserFields({ records: true, tomato: true }).then(fields => {
+      const records = (fields as any).records as IRecord[]
+      const tomato = (fields as any).tomato as number
+      this.setState({ records, tomato })
+    })
+  }
+
+  onPullDownRefresh () {
+    this.getInfo()
+  }
+
+  componentDidMount () {
+    this.getInfo()
+  }
+
+  componentDidShow () {
+    this.getInfo()
+  }
+
   handleGridClick (_item: Item, index: number) {
     if (index === 0) {
       this.$preload('mode', 'reward')
@@ -48,16 +69,6 @@ export default class Tomato extends Component<{}, IState> {
     }
     Taro.navigateTo({ url: 'list' })
   }
-
-  // navigateToRewardList () {
-  //   this.$preload('mode', 'reward')
-  //   Taro.navigateTo({ url: 'list' })
-  // }
-
-  // navigateToDailyList () {
-  //   this.$preload('mode', 'daily')
-  //   Taro.navigateTo({ url: 'list' })
-  // }
 
   handleSearchBarChange (value: string) {
     this.setState({
@@ -81,6 +92,7 @@ export default class Tomato extends Component<{}, IState> {
               <Text>已经收获了\n{this.state.tomato}个小番茄</Text>
             </View>
           </View>
+
           <View className='buttons'>
             <AtGrid
               onClick={this.handleGridClick}
@@ -90,6 +102,7 @@ export default class Tomato extends Component<{}, IState> {
             />
           </View>
         </View>
+
         <View className='list-view'>
           <AtSearchBar
             value={this.state.searchKeyword}
@@ -102,7 +115,7 @@ export default class Tomato extends Component<{}, IState> {
                 key={record.timestamp}
                 title={toTitleString(record)}
                 note={record.reason}
-                extraText={record.timestamp}
+                extraText={new Date(record.timestamp).toLocaleDateString()}
               />
             ))}
           </AtList>

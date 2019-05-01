@@ -4,7 +4,7 @@ export interface IRecord {
   type: TRecord
   tomato: number
   reason: string
-  timestamp: string
+  timestamp: number
 }
 
 export interface IListItem {

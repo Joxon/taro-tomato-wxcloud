@@ -85,11 +85,11 @@ class App extends Taro.Component {
         env: 'dev-i1tq4',
         traceUser: true
       })
-      // Taro.cloud.callFunction({
-      //   name: 'login',
-      //   data: {},
-      //   success: res => console.log(res)
-      // })
+      Taro.cloud.callFunction({
+        name: 'login',
+        data: {},
+        success: res => console.log(res)
+      })
     }
   }
 

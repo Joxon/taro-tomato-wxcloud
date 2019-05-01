@@ -3,8 +3,9 @@ import { View, Text, Image } from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
 import { FontAwesome } from 'taro-icons'
 
-import TOMATO_PNG from './images/tomato.png'
+import { addRecord } from '../../utils'
 
+import TOMATO_PNG from './images/tomato.png'
 import './clock.scss'
 
 interface IProps {
@@ -23,7 +24,8 @@ interface IPreload {
 }
 
 @inject('store')
-@observer class TomatoClock extends Component<IProps, IState> {
+@observer
+class TomatoClock extends Component<IProps, IState> {
   config: Config = {
     navigationBarTitleText: '番茄钟'
   }
@@ -77,60 +79,70 @@ interface IPreload {
   isWorking: boolean = true
 
   stopTicking () {
+    // 停止番茄钟
     clearInterval(this.clockHandle)
-    // TODO 提交积分事务
 
-    const {
-      store: { secondsToWork, secondsToRest }
-    } = this.props
+    // 上传记录
+    const tomato = this.state.tomatoBonus
+    addRecord({
+      type: 'harvest',
+      reason: `完成了【${this.state.name}】的番茄钟`,
+      tomato,
+      timestamp: new Date().valueOf()
+    }).then(() => {
+      // 上传完成后，是否继续？
+      const {
+        store: { secondsToWork, secondsToRest }
+      } = this.props
 
-    if (this.isWorking) {
-      this.isWorking = false
+      if (this.isWorking) {
+        this.isWorking = false
 
-      Taro.showModal({
-        title: '恭喜',
-        content: '已经完成了一个番茄钟~要开始下一个番茄钟吗？',
-        success: res => {
-          if (res.confirm) {
-            this.setState(
-              {
-                seconds: secondsToRest
-              },
-              () => {
-                Taro.showToast({
-                  title: '开始之前先休息一下吧~',
-                  icon: 'none'
-                })
-                this.startTicking()
-              }
-            )
-          } else {
-            Taro.navigateBack()
+        Taro.showModal({
+          title: '恭喜',
+          content: '已经完成了一个番茄钟~要开始下一个番茄钟吗？',
+          success: res => {
+            if (res.confirm) {
+              this.setState(
+                {
+                  seconds: secondsToRest
+                },
+                () => {
+                  Taro.showToast({
+                    title: '开始之前先休息一下吧~',
+                    icon: 'none'
+                  })
+                  this.startTicking()
+                }
+              )
+            } else {
+              Taro.navigateBack()
+            }
           }
-        }
-      })
-    } else {
-      this.isWorking = true
+        })
+      } else {
+        this.isWorking = true
 
-      Taro.showModal({
-        title: '准备',
-        content: '准备开始下一个番茄钟吧~',
-        success: res => {
-          if (res.confirm) {
-            this.setState(
-              {
-                seconds: secondsToWork
-              },
-              () => {
-                this.startTicking()
-              }
-            )
-          } else {
-            Taro.navigateBack()
+        Taro.showModal({
+          title: '准备',
+          content: '准备开始下一个番茄钟吧~',
+          success: res => {
+            if (res.confirm) {
+              this.setState(
+                {
+                  seconds: secondsToWork
+                },
+                () => {
+                  this.startTicking()
+                }
+              )
+            } else {
+              Taro.navigateBack()
+            }
           }
-        }
-      })
-    }
+        })
+      }
+    })
   }
 
   startTicking () {

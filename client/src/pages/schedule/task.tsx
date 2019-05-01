@@ -81,6 +81,12 @@ export default class TaskPage extends Component<{}, IState> {
   }
 
   callTaskFunction (verb: 'add' | 'edit' | 'delete', verbName: string): void {
+    const handleError = (error: any) => {
+      Taro.hideLoading()
+      Taro.showToast({ title: `${verbName}失败：${error}`, icon: 'none' })
+      console.error(error)
+    }
+
     // 防止用户重复点击
     Taro.showLoading({
       title: '处理中...',
@@ -106,20 +112,11 @@ export default class TaskPage extends Component<{}, IState> {
           }, 1000)
         } else {
           // 响应格式错误
-          Taro.hideLoading()
-          Taro.showToast({
-            title: `${verbName}失败：响应格式错误`,
-            icon: 'none'
-          })
-          console.error(response)
+          handleError(response)
         }
       })
       // 请求出错
-      .catch(error => {
-        Taro.hideLoading()
-        Taro.showToast({ title: `${verbName}失败：响应超时`, icon: 'none' })
-        console.error(error)
-      })
+      .catch(error => handleError(error))
   }
 
   onDelete () {

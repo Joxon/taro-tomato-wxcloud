@@ -4,6 +4,7 @@ import { AtButton, AtForm, AtInput, AtInputNumber } from 'taro-ui'
 
 import { IListItem } from './index.d'
 import { DEFAULT_ITEM } from './constants'
+import { addRecord } from '../../utils'
 
 type TEditMode = 'add' | 'edit'
 type TItemMode = 'reward' | 'daily'
@@ -47,7 +48,7 @@ export default class TomatoItem extends Component<{}, IState> {
       const tomatoNegative = -Math.abs(tomato)
       const tomatoPositive = +Math.abs(tomato)
 
-      this.item.tomato = itemMode === 'reward' ? tomatoNegative : tomatoPositive
+      this.item.tomato = itemMode === 'reward' ? tomatoNegative : tomato
       this.item.id = id
       this.item.name = name
 
@@ -55,7 +56,7 @@ export default class TomatoItem extends Component<{}, IState> {
         editMode: 'edit',
         itemMode,
         name,
-        tomato: tomatoPositive
+        tomato: itemMode === 'reward' ? tomatoPositive : tomato
       })
     } else if (editMode === 'add') {
       this.item.tomato = itemMode === 'reward' ? -10 : 10
@@ -71,6 +72,12 @@ export default class TomatoItem extends Component<{}, IState> {
   }
 
   callItemFunction (verb: 'add' | 'edit' | 'delete', verbName: string): void {
+    const handleError = (error: any) => {
+      Taro.hideLoading()
+      Taro.showToast({ title: `${verbName}失败：${error}`, icon: 'none' })
+      console.error(error)
+    }
+
     // 防止用户重复点击
     Taro.showLoading({
       title: '处理中...',
@@ -99,20 +106,47 @@ export default class TomatoItem extends Component<{}, IState> {
           }, 1000)
         } else {
           // 响应格式错误
-          Taro.hideLoading()
-          Taro.showToast({
-            title: `${verbName}失败：响应格式错误`,
-            icon: 'none'
-          })
-          console.error(response)
+          handleError(response)
         }
       })
       // 请求出错
-      .catch(error => {
-        Taro.hideLoading()
-        Taro.showToast({ title: `${verbName}失败：响应超时`, icon: 'none' })
-        console.error(error)
-      })
+      .catch(error => handleError(error))
+  }
+
+  onRecord () {
+    let { itemMode, name, tomato } = this.state
+
+    const type =
+      itemMode === 'reward'
+        ? 'redeem' // 兑换奖励
+        : tomato > 0
+          ? 'harvest' // 日常奖励
+          : 'punish' // 日常惩罚
+
+    const reason =
+      itemMode === 'reward'
+        ? `兑换了【${name}】`
+        : tomato > 0
+          ? `完成了【${name}】`
+          : `因为【${name}】了`
+
+    tomato =
+      itemMode === 'reward'
+        ? -Math.abs(tomato) // UI存的是正数
+        : tomato
+
+    const timestamp = new Date().valueOf()
+
+    addRecord({
+      type,
+      reason,
+      tomato,
+      timestamp
+    }).then(ms => {
+      if (typeof ms === 'number') {
+        setTimeout(() => Taro.navigateBack({ delta: 2 }), ms as number)
+      }
+    })
   }
 
   onDelete () {
@@ -165,12 +199,6 @@ export default class TomatoItem extends Component<{}, IState> {
       this.item.tomato = tomato
       this.setState({ tomato })
     }
-  }
-
-  onRecord () {
-    console.log('TCL: ------------------------------------------')
-    console.log('TCL: TomatoItem -> onRecord -> item', this.item)
-    console.log('TCL: ------------------------------------------')
   }
 
   render () {

@@ -81,15 +81,15 @@ exports.main = async(event, context) => {
         age: '3',
         sex: 'M'
       }
-      // 添加新用户信息，不等待添加完成
-      users.add({
+      // 添加新用户信息
+      return await users.add({
         data: newUser
       })
       // 直接返回默认配置，无需再次查询数据库
-      return {
-        data: [newUser],
-        errMsg: 'login: new user registered'
-      }
+      // return {
+      //   data: [newUser],
+      //   errMsg: 'login: new user registered'
+      // }
     } else {
       throw Error('login: invalid data.length = ', len)
     }
