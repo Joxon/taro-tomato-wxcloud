@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
-import { AtGrid, AtAvatar, AtList, AtListItem } from 'taro-ui'
+import { View, Button, OpenData } from '@tarojs/components'
+import { AtGrid, AtList, AtListItem } from 'taro-ui'
 import { Item } from 'taro-ui/@types/grid'
 
 import { IPost } from './index.d'
@@ -11,6 +11,7 @@ import './index.scss'
 
 interface IState {
   posts: IPost[]
+  userInfoAuthorized: boolean
 }
 
 const gridData: Item[] = [
@@ -30,10 +31,45 @@ export default class Dynamics extends Component<{}, IState> {
   }
 
   static defaultState: IState = {
-    posts: DEFAULT_POSTS
+    posts: DEFAULT_POSTS,
+    userInfoAuthorized: true
   }
 
   state: IState = Dynamics.defaultState
+
+  getPosts () {
+    ;(Taro.cloud.callFunction({
+      name: 'getPosts',
+      data: {}
+    }) as Promise<Taro.cloud.ICloud.CallFunctionResult>)
+      .then(res => {
+        const result = res.result as any
+        const posts = result.data[0] as IPost[]
+        this.setState({ posts })
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  }
+
+  onPullDownRefresh () {
+    this.getPosts()
+  }
+
+  componentDidMount () {
+    this.getPosts()
+    Taro.getSetting({
+      success: (res: any) => {
+        this.setState({
+          userInfoAuthorized: res.authSetting['scope.userInfo']
+        })
+      }
+    })
+  }
+
+  componentDidShow () {
+    this.getPosts()
+  }
 
   handleGridClick (_item: Item, index: number) {
     if (index === 0) {
@@ -49,10 +85,18 @@ export default class Dynamics extends Component<{}, IState> {
         <View className='top-view'>
           <View className='info'>
             <View className='avatar'>
-              <AtAvatar size='large' circle image={TOMATO_PNG} />
+              <View className='at-avatar at-avatar--large at-avatar--circle'>
+                <OpenData type='userAvatarUrl' />
+              </View>
             </View>
             <View className='user-name'>
-              <Text>用户名</Text>
+              <Button
+                open-type='getUserInfo'
+                hidden={this.state.userInfoAuthorized}
+              >
+                点击登录
+              </Button>
+              <OpenData type='userNickName' />
             </View>
           </View>
           <View className='buttons'>

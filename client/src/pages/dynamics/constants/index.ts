@@ -2,29 +2,9 @@ import { IPost, TAge, TSex, TSexName, IClassUser } from '../index.d'
 
 export const DEFAULT_POSTS: IPost[] = [
   {
-    userName: '张大茄',
-    content: '完成了【写作业】，耗时60分钟',
+    userName: '加载中...',
+    content: '加载中...',
     timestamp: 0
-  },
-  {
-    userName: '陈小茄',
-    content: '完成了【写作业】，耗时50分钟',
-    timestamp: 1
-  },
-  {
-    userName: '陈小茄',
-    content: '完成了【写作业】，耗时60分钟',
-    timestamp: 2
-  },
-  {
-    userName: '陈小茄',
-    content: '完成了【做家务】',
-    timestamp: 3
-  },
-  {
-    userName: '陈小茄',
-    content: '完成了【读书】',
-    timestamp: 4
   }
 ]
 

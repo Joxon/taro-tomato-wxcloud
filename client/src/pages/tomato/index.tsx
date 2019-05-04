@@ -112,7 +112,7 @@ export default class Tomato extends Component<{}, IState> {
               <AtAvatar size='large' circle image={TOMATO_PNG} />
             </View>
             <View className='tomato'>
-              <Text>已经收获了\n{this.state.tomato}个小番茄</Text>
+              <Text>小番茄：{this.state.tomato}个</Text>
             </View>
           </View>
 
