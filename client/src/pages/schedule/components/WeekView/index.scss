@@ -53,6 +53,7 @@ $bg-color: salmon;
 
         .task-cell {
           flex: 1;
+          max-width: calc(100% / 7);
           border-right: 1px dashed $border-color;
           border-bottom: 1px dashed $border-color;
 
