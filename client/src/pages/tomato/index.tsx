@@ -35,7 +35,7 @@ export default class Tomato extends Component<{}, IState> {
 
   static defaultState: IState = {
     records: DEFAULT_RECORDS,
-    tomato: 100,
+    tomato: 0,
     searchKeyword: ''
   }
 

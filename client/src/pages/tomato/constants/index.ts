@@ -4,38 +4,27 @@ export const DEFAULT_RECORDS: IRecord[] = [
   {
     type: 'harvest',
     tomato: 10,
-    reason: '完成了【写作业】',
+    reason: '加载中...',
     timestamp: 0
   },
   {
     type: 'redeem',
     tomato: 10,
-    reason: '兑换了【玩电脑一小时】',
+    reason: '加载中...',
     timestamp: 1
   },
   {
     type: 'punish',
     tomato: 10,
-    reason: '因为【睡懒觉】了',
+    reason: '加载中...',
     timestamp: 2
-  },
-  {
-    type: 'harvest',
-    tomato: 10,
-    reason: 'good',
-    timestamp: 3
   }
 ]
 
 export const DEFAULT_REWARD_ITEMS: IListItem[] = [
   {
     id: '0',
-    name: '玩电脑一小时',
-    tomato: -10
-  },
-  {
-    id: '1',
-    name: '看电视一小时',
+    name: '加载中...',
     tomato: -10
   }
 ]
@@ -43,23 +32,13 @@ export const DEFAULT_REWARD_ITEMS: IListItem[] = [
 export const DEFAULT_DAILY_ITEMS: IListItem[] = [
   {
     id: '0',
-    name: '睡懒觉',
-    tomato: -10
-  },
-  {
-    id: '1',
-    name: '闹脾气',
-    tomato: -10
-  },
-  {
-    id: '2',
-    name: '考试第一名',
+    name: '加载中...',
     tomato: 10
   }
 ]
 
 export const DEFAULT_ITEM: IListItem = {
-  id: '',
-  name: '',
+  id: '0',
+  name: '加载中...',
   tomato: 10
 }

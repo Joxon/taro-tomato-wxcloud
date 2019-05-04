@@ -7,6 +7,7 @@ import { getUserFields } from '../../utils'
 import { IListItem } from './index.d'
 
 import './list.scss'
+import { DEFAULT_ITEM } from './constants'
 
 type TListMode = 'reward' | 'daily'
 
@@ -23,7 +24,7 @@ export default class TomatoList extends Component<{}, IState> {
   }
 
   static defaultState: IState = {
-    items: []
+    items: [DEFAULT_ITEM]
   }
 
   state: IState = TomatoList.defaultState

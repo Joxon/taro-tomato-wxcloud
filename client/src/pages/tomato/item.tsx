@@ -3,7 +3,6 @@ import { View, Label } from '@tarojs/components'
 import { AtButton, AtForm, AtInput, AtInputNumber } from 'taro-ui'
 
 import { IListItem } from './index.d'
-import { DEFAULT_ITEM } from './constants'
 import { addRecord } from '../../utils'
 
 type TEditMode = 'add' | 'edit'
@@ -35,22 +34,16 @@ export default class TomatoItem extends Component<{}, IState> {
 
   state: IState = TomatoItem.defaultState
   preload: IPreload
-  item: IListItem = DEFAULT_ITEM
 
   componentWillMount () {
     this.preload = this.$router.preload as IPreload
     const { editMode, itemMode } = this.preload
     if (editMode === 'edit') {
-      const { id, name, tomato } = this.preload
+      const { name, tomato } = this.preload
 
       // 日常模式下，UI与数据层相同
       // 奖励模式下，UI显示正数，数据层为负
-      const tomatoNegative = -Math.abs(tomato)
       const tomatoPositive = +Math.abs(tomato)
-
-      this.item.tomato = itemMode === 'reward' ? tomatoNegative : tomato
-      this.item.id = id
-      this.item.name = name
 
       this.setState({
         editMode: 'edit',
@@ -59,9 +52,6 @@ export default class TomatoItem extends Component<{}, IState> {
         tomato: itemMode === 'reward' ? tomatoPositive : tomato
       })
     } else if (editMode === 'add') {
-      this.item.tomato = itemMode === 'reward' ? -10 : 10
-      this.item.name = ''
-
       this.setState({
         editMode: 'add',
         itemMode,
@@ -84,12 +74,28 @@ export default class TomatoItem extends Component<{}, IState> {
       mask: true
     })
 
-    // 提交数据
+    // 准备数据
+    const { editMode, itemMode, ...ui } = this.state
+    const { name, tomato: tomatoNumOrStr } = ui
+    const id =
+      editMode === 'add' ? new Date().valueOf().toString() : this.preload.id
+    const tomatoNum =
+      typeof tomatoNumOrStr === 'string'
+        ? parseInt(tomatoNumOrStr)
+        : tomatoNumOrStr
+    const tomato = itemMode === 'reward' ? -Math.abs(tomatoNum) : tomatoNum
+    const item: IListItem = {
+      id,
+      name,
+      tomato
+    }
+
+      // 提交数据
     ;(Taro.cloud.callFunction({
       name: `${verb}Item`,
       data: {
-        item: this.item,
-        itemMode: this.state.itemMode
+        item,
+        itemMode
       }
     }) as Promise<Taro.cloud.ICloud.CallFunctionResult>)
       // 收到响应
@@ -171,34 +177,20 @@ export default class TomatoItem extends Component<{}, IState> {
     // 准备请求
     const verb = editMode
     const verbName = editMode === 'add' ? '添加' : '修改'
-    if (editMode === 'add') {
-      // 小程序端生成ID
-      this.item.id = '' + new Date().valueOf()
-    }
     this.callItemFunction(verb, verbName)
   }
 
   onReset () {
-    this.item.name = ''
-    this.item.tomato = this.preload.itemMode === 'reward' ? -10 : 10
     this.setState({ name: '', tomato: 10 })
   }
 
   handleNameInput (name: string) {
-    this.item.name = name
     this.setState({ name })
   }
 
   handleTomatoInputNumber (tomato: number) {
-    if (this.state.itemMode === 'reward') {
-      const tomatoNegative = -Math.abs(tomato)
-      const tomatoPositive = +Math.abs(tomato)
-      this.item.tomato = tomatoNegative
-      this.setState({ tomato: tomatoPositive })
-    } else {
-      this.item.tomato = tomato
-      this.setState({ tomato })
-    }
+    const t = this.state.itemMode === 'reward' ? +Math.abs(tomato) : tomato
+    this.setState({ tomato: t })
   }
 
   render () {

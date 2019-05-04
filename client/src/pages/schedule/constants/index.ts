@@ -2,101 +2,11 @@ import { ITask, IDay, THour, TMinute } from '../index.d'
 
 export const DEFAULT_TASKS: ITask[] = [
   {
-    id: '1',
-    name: '写作业',
+    id: '',
+    name: '加载中...',
     weekday: 'Sat',
     startHour: '08',
     endHour: '10',
-    startMinute: '00',
-    endMinute: '00',
-    tomatoBonus: 10
-  },
-  {
-    id: '2',
-    name: '读书',
-    weekday: 'Sat',
-    startHour: '11',
-    endHour: '11',
-    startMinute: '00',
-    endMinute: '30',
-    tomatoBonus: 10
-  },
-  {
-    id: '3',
-    name: '篮球班',
-    weekday: 'Sat',
-    startHour: '15',
-    endHour: '17',
-    startMinute: '00',
-    endMinute: '00',
-    tomatoBonus: 10
-  },
-  {
-    id: '4',
-    name: '篮球班',
-    weekday: 'Sun',
-    startHour: '15',
-    endHour: '17',
-    startMinute: '00',
-    endMinute: '00',
-    tomatoBonus: 10
-  },
-  {
-    id: '5',
-    name: '读书',
-    weekday: 'Mon',
-    startHour: '20',
-    endHour: '21',
-    startMinute: '00',
-    endMinute: '00',
-    tomatoBonus: 10
-  },
-  {
-    id: '6',
-    name: '读书',
-    weekday: 'Tue',
-    startHour: '20',
-    endHour: '21',
-    startMinute: '00',
-    endMinute: '00',
-    tomatoBonus: 10
-  },
-  {
-    id: '7',
-    name: '读书',
-    weekday: 'Wed',
-    startHour: '20',
-    endHour: '21',
-    startMinute: '00',
-    endMinute: '00',
-    tomatoBonus: 10
-  },
-  {
-    id: '8',
-    name: '读书',
-    weekday: 'Thu',
-    startHour: '20',
-    endHour: '21',
-    startMinute: '00',
-    endMinute: '00',
-    tomatoBonus: 10
-  },
-  {
-    id: '9',
-    name: '读书',
-    weekday: 'Fri',
-    startHour: '20',
-    endHour: '21',
-    startMinute: '00',
-    endMinute: '00',
-    tomatoBonus: 10
-  },
-  {
-    id: '10',
-    name: '测试',
-    weekday: 'Fri',
-    startHour: '00',
-    endHour: '23',
     startMinute: '00',
     endMinute: '00',
     tomatoBonus: 10
