@@ -8,7 +8,7 @@ import { BaseEventOrig } from '@tarojs/components/types/common'
 import { AtButton, AtForm, AtInput, AtInputNumber } from 'taro-ui'
 
 import { THour, TMinute, ITask } from './index.d'
-import { DEFAULT_TASK, WEEKDAYS } from './constants'
+import { DEFAULT_TASK, WEEKDAYS, RECENT_WEEKDAYS } from './constants'
 import { parseTimeToNumber } from './utils'
 
 type TPageMode = 'add' | 'edit'
@@ -44,8 +44,6 @@ export default class TaskPage extends Component<{}, IState> {
 
   state: IState = TaskPage.defaultState
 
-  task: ITask = DEFAULT_TASK
-
   componentWillMount () {
     // task?foo=bar
     // console.log('params: ')
@@ -57,9 +55,6 @@ export default class TaskPage extends Component<{}, IState> {
 
     const { mode, ...task }: IPreload = this.$router.preload
     if (mode === 'edit') {
-      // 设置数据层表单ID，最终提交的是表单task的数据
-      this.task = task
-
       // 设置UI表单
       const weekdayIndex = WEEKDAYS.map(day => day.weekday).indexOf(
         task.weekday
@@ -67,15 +62,24 @@ export default class TaskPage extends Component<{}, IState> {
       const weekdayName = WEEKDAYS[weekdayIndex].weekdayName
       const startTime = `${task.startHour}:${task.startMinute}`
       const endTime = `${task.endHour}:${task.endMinute}`
-
       this.setState({
-        mode,
+        mode: 'edit',
         name: task.name,
         weekdayIndex,
         weekdayName,
         startTime,
         endTime,
         tomatoBonus: task.tomatoBonus
+      })
+    } else if (mode === 'add') {
+      const weekdayIndex = WEEKDAYS.map(day => day.weekday).indexOf(
+        RECENT_WEEKDAYS[0].weekday
+      )
+      const weekdayName = WEEKDAYS[weekdayIndex].weekdayName
+      this.setState({
+        mode: 'add',
+        weekdayIndex,
+        weekdayName
       })
     }
   }
@@ -93,10 +97,34 @@ export default class TaskPage extends Component<{}, IState> {
       mask: true
     })
 
-    // 提交数据
+    // 准备数据
+    const { mode, ...ui } = this.state
+    const id =
+      mode === 'add' ? new Date().valueOf().toString() : this.$router.preload.id
+    const { name, weekdayIndex, startTime, endTime, tomatoBonus: t } = ui
+    const weekday = WEEKDAYS[weekdayIndex].weekday
+    const startTimeParts = startTime.split(':')
+    const startHour: THour = startTimeParts[0] as THour
+    const startMinute: TMinute = startTimeParts[1] as TMinute
+    const endTimeParts = endTime.split(':')
+    const endHour: THour = endTimeParts[0] as THour
+    const endMinute: TMinute = endTimeParts[1] as TMinute
+    const tomatoBonus = typeof t === 'string' ? parseInt(t) : t
+    const task: ITask = {
+      id,
+      name,
+      weekday,
+      startHour,
+      startMinute,
+      endHour,
+      endMinute,
+      tomatoBonus
+    }
+
+      // 提交数据
     ;(Taro.cloud.callFunction({
       name: `${verb}Task`,
-      data: { task: this.task }
+      data: { task }
     }) as Promise<Taro.cloud.ICloud.CallFunctionResult>)
       // 收到响应
       .then(response => {
@@ -145,28 +173,20 @@ export default class TaskPage extends Component<{}, IState> {
     // 准备请求
     const verb = mode
     const verbName = mode === 'add' ? '添加' : '修改'
-    if (mode === 'add') {
-      // 小程序端生成ID
-      this.task.id = '' + new Date().valueOf()
-    }
     this.callTaskFunction(verb, verbName)
   }
 
   // @param event: CommonEvent
   onReset () {
-    this.task = DEFAULT_TASK
     this.setState(TaskPage.defaultState)
   }
 
   handleNameInput (name: string) {
-    this.task.name = name
     this.setState({ name })
   }
 
   handleWeekdayPicker (event: BaseEventOrig<PickerSelectorProps>) {
     const val: number = event.detail.value
-
-    this.task.weekday = WEEKDAYS[val].weekday
     this.setState({
       weekdayIndex: val,
       weekdayName: WEEKDAYS[val].weekdayName
@@ -186,22 +206,21 @@ export default class TaskPage extends Component<{}, IState> {
       return
     }
 
+    // 获取开始时间
     const startTimeParts = startTime.split(':')
     const startHour: THour = startTimeParts[0] as THour
     const startMinute: TMinute = startTimeParts[1] as TMinute
+
+    // 设定结束时间为半小时后
     const endMinute: TMinute = ((parseInt(startMinute, 10) + 30) % 60)
       .toString()
       .padStart(2, '0') as TMinute
     const endHour: THour =
       parseInt(endMinute) < parseInt(startMinute)
-        ? ((parseInt(startHour) + 1).toString().padStart(2, '0') as THour)
+        ? ((parseInt(startHour) + 1).toString().padStart(2, '0') as THour) // 小时进位
         : startHour
     const endTime = `${endHour}:${endMinute}`
 
-    this.task.startHour = startHour
-    this.task.startMinute = startMinute
-    this.task.endHour = endHour
-    this.task.endMinute = endMinute
     this.setState({
       startTime,
       endTime
@@ -226,18 +245,11 @@ export default class TaskPage extends Component<{}, IState> {
         duration: 2000
       })
     } else {
-      const endTimeParts = endTime.split(':')
-      const endHour = endTimeParts[0] as THour
-      const endMinute = endTimeParts[1] as TMinute
-
-      this.task.endHour = endHour
-      this.task.endMinute = endMinute
       this.setState({ endTime })
     }
   }
 
   handleTomatoInputNumber (tomatoBonus: number) {
-    this.task.tomatoBonus = tomatoBonus
     this.setState({ tomatoBonus })
   }
 

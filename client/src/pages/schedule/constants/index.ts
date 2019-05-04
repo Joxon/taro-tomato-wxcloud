@@ -236,6 +236,7 @@ export const TIME: [THour[], TMinute[]] = [
   ]
 ]
 
+// 获取未来一周，包括今天
 const getRecentWeekdays: () => IDay[] = () => {
   const weekdays: IDay[] = []
 
@@ -247,11 +248,13 @@ const getRecentWeekdays: () => IDay[] = () => {
   // corresponding to the day of the week for the given date,
   // according to local time:
   // 0 for Sunday, 1 for Monday, 2 for Tuesday, and so on.
+
   const todaysIndexTemp = d.getDay() - 1
   const todaysIndex = todaysIndexTemp === -1 ? 6 : todaysIndexTemp
+  const weekLength = 7
 
-  for (let i = 0; i < WEEKDAYS.length; ++i) {
-    const day = WEEKDAYS[(i + todaysIndex) % WEEKDAYS.length]
+  for (let i = 0; i < weekLength; ++i) {
+    const day = WEEKDAYS[(i + todaysIndex) % weekLength]
 
     const daysMonth = d.getMonth() + 1 // getMonth返回0-11
     const daysDay = d.getDate() // getDate返回1-31

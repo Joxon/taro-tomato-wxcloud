@@ -1,17 +1,24 @@
+$font-color: rgb(78, 78, 78);
+$border-color: lightgray;
+$bg-color: salmon;
+
 .week-view {
+  color: $font-color;
+
   .header {
     display: flex;
     font-size: small;
+    border-bottom: 1px solid $border-color;
+    // offset-x | offset-y | blur-radius | spread-radius | color
+    // box-shadow: 0 10px 10px 1px rgba(130, 130, 130, 1);
 
     .header-left {
       flex: 1;
-      border-bottom: 1px solid black;
     }
 
     .header-right {
       flex: 7;
       display: flex;
-      border-bottom: 1px solid black;
 
       .header-right-column {
         flex: 1;
@@ -20,7 +27,7 @@
 
       .header-today {
         border-radius: 60%;
-        background-color: salmon;
+        background-color: $bg-color;
         color: white;
       }
     }
@@ -35,8 +42,8 @@
         flex: 1;
         font-size: 18rpx;
         text-align: end;
-        color: darkgray;
-        border-right: 1px solid black;
+        border-right: 1px solid $border-color;
+        // box-shadow: 10px 0px 10px 0px rgba(130, 130, 130, 1);
       }
 
       .tasks-row {
@@ -46,14 +53,14 @@
 
         .task-cell {
           flex: 1;
-          border-right: 1px dashed darkgray;
-          border-bottom: 1px dashed darkgray;
+          border-right: 1px dashed $border-color;
+          border-bottom: 1px dashed $border-color;
 
           .task-card {
             height: 100%;
             font-size: 30rpx;
             color: white;
-            background: lightcoral;
+            background: $bg-color;
           }
         }
       }
