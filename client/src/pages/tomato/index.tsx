@@ -5,7 +5,6 @@ import { Item } from 'taro-ui/@types/grid'
 
 import { IRecord } from './index.d'
 import { DEFAULT_RECORDS } from './constants'
-import { toTitleString } from './utils'
 import { getUserFields } from '../../utils'
 
 import TOMATO_PNG from './images/tomato.png'
@@ -46,7 +45,21 @@ export default class Tomato extends Component<{}, IState> {
     getUserFields({ records: true, tomato: true }).then(fields => {
       const records = (fields as any).records as IRecord[]
       const tomato = (fields as any).tomato as number
-      this.setState({ records, tomato })
+      if (records.length === 0) {
+        this.setState({
+          tomato,
+          records: [
+            {
+              tomato: 0,
+              reason: '暂无记录',
+              timestamp: new Date().valueOf()
+            }
+          ]
+        })
+      } else {
+        this.setState({ records, tomato })
+      }
+      // 保存当前记录，后续可以过滤
       this.records = records
     })
   }
@@ -137,7 +150,15 @@ export default class Tomato extends Component<{}, IState> {
             {this.state.records.map(record => (
               <AtListItem
                 key={record.timestamp}
-                title={toTitleString(record)}
+                title={
+                  record.type === 'harvest'
+                    ? '收获'
+                    : record.type === 'punish'
+                      ? '惩罚'
+                      : record.type === 'redeem'
+                        ? '兑换'
+                        : ''
+                }
                 note={record.reason}
                 extraText={new Date(record.timestamp).toLocaleDateString()}
               />

@@ -27,8 +27,35 @@ export function getUserFields (fields: IFields): Promise<object | void> {
   }) as Promise<Taro.cloud.ICloud.CallFunctionResult>)
     .then(response => {
       const result = response.result as any
+      if (result.data.length !== 1) {
+        throw Error('getUserFields: result.data.length !== 1')
+      }
       const userFields = result.data[0] as object
       return userFields
+    })
+    .catch(err => console.error(err))
+}
+
+export function getClassFields (
+  classId: string,
+  fields: IFields
+): Promise<object | void> {
+  return (Taro.cloud.callFunction({
+    name: 'getClassFields',
+    data: {
+      class: {
+        id: classId
+      },
+      fields
+    }
+  }) as Promise<Taro.cloud.ICloud.CallFunctionResult>)
+    .then(response => {
+      const result = response.result as any
+      if (result.data.length !== 1) {
+        throw Error('getClassFields: result.data.length !== 1')
+      }
+      const classFields = result.data[0] as object
+      return classFields
     })
     .catch(err => console.error(err))
 }

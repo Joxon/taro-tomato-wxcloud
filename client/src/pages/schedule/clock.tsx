@@ -86,7 +86,7 @@ class TomatoClock extends Component<IProps, IState> {
     const tomato = this.state.tomatoBonus
     addRecord({
       type: 'harvest',
-      reason: `完成了【${this.state.name}】的番茄钟`,
+      reason: `完成了【${this.state.name}】的番茄钟，收获${tomato}个小番茄`,
       tomato,
       timestamp: new Date().valueOf()
     }).then(() => {

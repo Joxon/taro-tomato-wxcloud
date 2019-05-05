@@ -37,39 +37,7 @@ export const MINUTES_TO_WORK: number[] = [15, 20, 25, 30]
 
 export const DEFAULT_CLASSMATES: IClassUser[] = [
   {
-    id: '0',
-    name: '小番茄用户'
-  },
-  {
-    id: '1',
-    name: '小番茄用户'
-  },
-  {
-    id: '2',
-    name: '小番茄用户'
-  },
-  {
-    id: '3',
-    name: '小番茄用户'
-  },
-  {
-    id: '4',
-    name: '小番茄用户'
-  },
-  {
-    id: '5',
-    name: '小番茄用户'
-  },
-  {
-    id: '6',
-    name: '小番茄用户'
-  },
-  {
-    id: '7',
-    name: '小番茄用户'
-  },
-  {
-    id: '8',
-    name: '小番茄用户'
+    id: '',
+    name: '加载中...'
   }
 ]

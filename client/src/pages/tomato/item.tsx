@@ -121,6 +121,7 @@ export default class TomatoItem extends Component<{}, IState> {
 
   onRecord () {
     let { itemMode, name, tomato } = this.state
+    const tomatoPositive = Math.abs(tomato)
 
     const type =
       itemMode === 'reward'
@@ -131,10 +132,10 @@ export default class TomatoItem extends Component<{}, IState> {
 
     const reason =
       itemMode === 'reward'
-        ? `兑换了【${name}】`
+        ? `兑换【${name}】，消耗${tomatoPositive}个小番茄`
         : tomato > 0
-          ? `完成了【${name}】`
-          : `因为【${name}】了`
+          ? `完成【${name}】，收获${tomatoPositive}个小番茄`
+          : `因为【${name}】，惩罚${tomatoPositive}个小番茄`
 
     tomato =
       itemMode === 'reward'

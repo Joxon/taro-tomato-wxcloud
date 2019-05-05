@@ -10,29 +10,27 @@
     text-align: center;
     color: #333;
 
-    .share-button {
+    .share-button-view {
       position: absolute;
       right: 50rpx;
     }
 
-    .avatar {
+    .avatar-view {
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
-    .text {
+    .text-normal {
       margin: 20rpx 0;
+      color: #333;
+      font-size: 36rpx;
+    }
 
-      .name {
-        color: #333;
-        font-size: 36rpx;
-      }
-
-      .id {
-        color: #999;
-        font-size: 28rpx;
-      }
+    .text-small {
+      margin: 20rpx 0;
+      color: #999;
+      font-size: 28rpx;
     }
   }
 }

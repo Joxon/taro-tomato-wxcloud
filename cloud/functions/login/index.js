@@ -56,6 +56,8 @@ exports.main = async(event, context) => {
       // 没有命中记录，自动注册
       // 默认配置
       const id = new Date().valueOf().toString()
+      const countResult = await users.count()
+      const userNum = countResult.total
       const newUser = {
         // ID
         _openid: OPENID,
@@ -78,6 +80,7 @@ exports.main = async(event, context) => {
         }],
         // Dynamics
         classId: null,
+        name: '小番茄用户#' + userNum,
         age: '3',
         sex: 'M'
       }

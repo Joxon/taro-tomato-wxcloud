@@ -1,15 +1,17 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button, OpenData } from '@tarojs/components'
+import { View, Button, OpenData, Text } from '@tarojs/components'
 import { AtGrid, AtList, AtListItem } from 'taro-ui'
 import { Item } from 'taro-ui/@types/grid'
 
 import { IPost } from './index.d'
 import { DEFAULT_POSTS } from './constants'
+import { getUserFields, getClassFields } from '../../utils'
 
 import TOMATO_PNG from './images/tomato.png'
 import './index.scss'
 
 interface IState {
+  userName: string
   posts: IPost[]
   userInfoAuthorized: boolean
 }
@@ -31,32 +33,67 @@ export default class Dynamics extends Component<{}, IState> {
   }
 
   static defaultState: IState = {
+    userName: '加载中...',
     posts: DEFAULT_POSTS,
     userInfoAuthorized: true
   }
 
   state: IState = Dynamics.defaultState
 
+  getUserName () {
+    getUserFields({ name: true }).then(fields => {
+      const userName = (fields as any).name as string
+      this.setState({ userName })
+    })
+  }
+
   getPosts () {
-    ;(Taro.cloud.callFunction({
-      name: 'getPosts',
-      data: {}
-    }) as Promise<Taro.cloud.ICloud.CallFunctionResult>)
-      .then(res => {
-        const result = res.result as any
-        const posts = result.data[0] as IPost[]
-        this.setState({ posts })
+    getUserFields({ classId: true })
+      .then(fields => {
+        const classId = (fields as any).classId as string
+        if (classId === '' || classId === null || classId === undefined) {
+          throw Error(
+            'getPosts: classId is invalid. Maybe user has not joined a class.'
+          )
+        } else {
+          return classId
+        }
       })
-      .catch(err => {
-        console.error(err)
+      .then(classId => {
+        return getClassFields(classId, { posts: true })
+      })
+      .then(fields => {
+        const posts = (fields as any).posts as IPost[]
+        if (!Array.isArray(posts)) {
+          throw Error('getPosts: "posts" is not an array')
+        }
+        if (posts.length === 0) {
+          throw Error('getPosts: no post in "posts"')
+        } else {
+          this.setState({ posts })
+        }
+      })
+      .catch(e => {
+        console.error(e)
+        this.setState({
+          posts: [
+            {
+              userName: '',
+              content: '暂无班级动态',
+              timestamp: new Date().valueOf()
+            }
+          ]
+        })
       })
   }
 
   onPullDownRefresh () {
+    this.getUserName()
     this.getPosts()
   }
 
   componentDidMount () {
+    this.getUserName()
     this.getPosts()
     Taro.getSetting({
       success: (res: any) => {
@@ -68,6 +105,7 @@ export default class Dynamics extends Component<{}, IState> {
   }
 
   componentDidShow () {
+    this.getUserName()
     this.getPosts()
   }
 
@@ -96,7 +134,7 @@ export default class Dynamics extends Component<{}, IState> {
               >
                 点击登录
               </Button>
-              <OpenData type='userNickName' />
+              <Text>{this.state.userName}</Text>
             </View>
           </View>
           <View className='buttons'>
@@ -116,7 +154,7 @@ export default class Dynamics extends Component<{}, IState> {
                 key={post.timestamp}
                 title={post.userName}
                 note={post.content}
-                extraText={post.timestamp.toString()}
+                extraText={new Date(post.timestamp).toLocaleDateString()}
               />
             ))}
           </AtList>
