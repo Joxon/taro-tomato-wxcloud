@@ -14,15 +14,15 @@ import 'taro-icons/scss/FontAwesome.scss' // 322KB
 // import './assets/styles/taro-ui.css' // 自定义样式，单文件版本
 // import './assets/styles/custom-theme.scss' // 自定义样式，开发版本
 
-import { Provider } from '@tarojs/mobx'
+// import { Provider } from '@tarojs/mobx'
+// import store from './store'
 
 import Index from './pages/index/index'
-import store from './store'
 import './app.scss'
 
-const storeProp = {
-  store
-}
+// const storeProp = {
+//   store
+// }
 
 class App extends Taro.Component {
   config: Taro.Config = {
@@ -103,9 +103,9 @@ class App extends Taro.Component {
     return (
       // 注意传参是可能包括多个store的object
       // 如<Provider store={{ store1, store2, ... }}>
-      <Provider store={storeProp}>
-        <Index />
-      </Provider>
+      // <Provider store={storeProp}>
+      <Index />
+      // </Provider>
     )
   }
 }

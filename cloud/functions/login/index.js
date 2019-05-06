@@ -51,7 +51,7 @@ exports.main = async(event, context) => {
     const len = result.data.length
     if (len === 1) {
       // 命中一条记录，自动登录
-      return result
+      return 'login: OK'
     } else if (len === 0) {
       // 没有命中记录，自动注册
       // 默认配置
@@ -63,8 +63,8 @@ exports.main = async(event, context) => {
         _openid: OPENID,
         // Schedule
         tasks: [],
-        secondsToRest: 300,
-        secondsToWork: 1800,
+        secondsToRest: 5 * 60,
+        secondsToWork: 25 * 60,
         // Tomato
         tomato: 0,
         records: [],
@@ -85,9 +85,10 @@ exports.main = async(event, context) => {
         sex: 'M'
       }
       // 添加新用户信息
-      return await users.add({
+      users.add({
         data: newUser
       })
+      return 'login: OK'
       // 直接返回默认配置，无需再次查询数据库
       // return {
       //   data: [newUser],

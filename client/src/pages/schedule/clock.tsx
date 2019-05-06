@@ -1,9 +1,9 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
-import { observer, inject } from '@tarojs/mobx'
+// import { observer, inject } from '@tarojs/mobx'
 import { FontAwesome } from 'taro-icons'
 
-import { addRecord } from '../../utils'
+import { addRecord, getUserFields } from '../../utils'
 
 import TOMATO_PNG from './images/tomato.png'
 import './clock.scss'
@@ -23,8 +23,8 @@ interface IPreload {
   tomatoBonus: number
 }
 
-@inject('store')
-@observer
+// @inject('store')
+// @observer
 class TomatoClock extends Component<IProps, IState> {
   config: Config = {
     navigationBarTitleText: '番茄钟'
@@ -37,38 +37,45 @@ class TomatoClock extends Component<IProps, IState> {
   }
 
   readonly defaultSecondsToWork = 25 * 60
+  secondsToWork: number
   readonly defaultSecondsToRest = 5 * 60
+  secondsToRest: number
 
   state: IState = TomatoClock.defaultState
   preload: IPreload
 
-  componentWillMount () {
+  componentDidMount () {
     this.preload = this.$router.preload
     const preload: IPreload = this.$router.preload
 
-    const {
-      store: { secondsToWork }
-    } = this.props
+    // const {
+    //   store: { secondsToWork }
+    // } = this.props
 
-    this.setState({
-      seconds: secondsToWork,
-      name: preload.name,
-      tomatoBonus: preload.tomatoBonus
-    })
-  }
+    getUserFields({ secondsToWork: true, secondsToRest: true }).then(
+      (fields: any) => {
+        this.secondsToWork = fields.secondsToWork
+        this.secondsToRest = fields.secondsToRest
 
-  componentDidMount () {
-    Taro.showModal({
-      title: '确认开始？',
-      content: '一旦开始就无法暂停哦~确认要开始吗？',
-      success: respond => {
-        if (respond.confirm) {
-          this.startTicking()
-        } else {
-          Taro.navigateBack()
-        }
+        this.setState({
+          seconds: fields.secondsToWork,
+          name: preload.name,
+          tomatoBonus: preload.tomatoBonus
+        })
+
+        Taro.showModal({
+          title: '确认开始？',
+          content: '一旦开始就无法暂停哦~确认要开始吗？',
+          success: respond => {
+            if (respond.confirm) {
+              this.startTicking()
+            } else {
+              Taro.navigateBack()
+            }
+          }
+        })
       }
-    })
+    )
   }
 
   componentWillUnmount () {
@@ -91,9 +98,9 @@ class TomatoClock extends Component<IProps, IState> {
       timestamp: new Date().valueOf()
     }).then(() => {
       // 上传完成后，是否继续？
-      const {
-        store: { secondsToWork, secondsToRest }
-      } = this.props
+      // const {
+      //   store: { secondsToWork, secondsToRest }
+      // } = this.props
 
       if (this.isWorking) {
         this.isWorking = false
@@ -105,7 +112,7 @@ class TomatoClock extends Component<IProps, IState> {
             if (res.confirm) {
               this.setState(
                 {
-                  seconds: secondsToRest
+                  seconds: this.secondsToRest
                 },
                 () => {
                   Taro.showToast({
@@ -130,7 +137,7 @@ class TomatoClock extends Component<IProps, IState> {
             if (res.confirm) {
               this.setState(
                 {
-                  seconds: secondsToWork
+                  seconds: this.secondsToWork
                 },
                 () => {
                   this.startTicking()

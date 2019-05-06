@@ -285,7 +285,8 @@ export default class Class extends Component<{}, IState> {
     })
   }
 
-  onShareAppMessage (obj: Taro.ShareAppMessageObject) {
+  // @param: obj: Taro.ShareAppMessageObject
+  onShareAppMessage () {
     return {
       title: '邀请你加入我的班级',
       path: `/pages/dynamics/class?join=${this.state.classId}`

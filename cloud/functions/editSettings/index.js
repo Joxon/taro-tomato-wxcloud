@@ -1,16 +1,39 @@
-// 云函数入口文件
 const cloud = require('wx-server-sdk')
 
-cloud.init()
+cloud.init({
+  env: 'dev-i1tq4'
+})
+const db = cloud.database()
+const users = db.collection('users')
 
-// 云函数入口函数
-exports.main = async (event, context) => {
-  const wxContext = cloud.getWXContext()
+exports.main = async(event, context) => {
+  try {
+    const {
+      OPENID
+    } = cloud.getWXContext()
 
-  return {
-    event,
-    openid: wxContext.OPENID,
-    appid: wxContext.APPID,
-    unionid: wxContext.UNIONID,
+    const user = users.where({
+      "_openid": OPENID
+    })
+
+    const {
+      name,
+      sex,
+      age,
+      secondsToRest,
+      secondsToWork
+    } = event.settings
+
+    return await user.update({
+      data: {
+        name,
+        sex,
+        age,
+        secondsToRest,
+        secondsToWork
+      }
+    })
+  } catch (e) {
+    console.error(e)
   }
 }
