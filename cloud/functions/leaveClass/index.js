@@ -27,24 +27,27 @@ exports.main = async(event, context) => {
     if (updateUserClassIdResult.stats.updated !== 1) {
       throw Error('joinClass: failed to update user\'s classId to null')
     }
-    // 修改班级成员
+    // 修改班级成员和动态
     const aClass = classes.doc(classId)
     // 注意，此处是doc.get，而不是collection.get
     // 所以只会返回一条记录
     // 后续不需要data[0]
     const getClassmatesResult = await aClass.field({
-      classmates: true
+      classmates: true,
+      posts: true
     }).get()
     if (getClassmatesResult.errMsg !== 'document.get:ok') {
-      throw Error('joinClass: failed to get classmates')
+      throw Error('joinClass: failed to get classmates and posts')
     }
     const {
-      classmates
+      classmates,
+      posts
     } = getClassmatesResult.data
-    // 删除成员并更新班级
+    // 删除成员和相关动态并更新班级
     return await aClass.update({
       data: {
-        classmates: classmates.filter(classmate => classmate.id !== OPENID)
+        classmates: classmates.filter(classmate => classmate.id !== OPENID),
+        posts: posts.filter(post => post.uid !== OPENID)
       }
     })
   } catch (e) {
