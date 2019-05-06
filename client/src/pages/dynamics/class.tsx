@@ -172,24 +172,36 @@ export default class Class extends Component<{}, IState> {
         }
       }) as Promise<Taro.cloud.ICloud.CallFunctionResult>)
         // 收到响应
-        .then(response => {
-          const result = response.result as any
+        .then(res => {
+          const result = res.result as any
+          let succeeded = false
+
           if (result.stats === undefined) {
-            handleError(response)
-          } else if (result.stats.updated === 1) {
+            handleError(res)
+          }
+
+          if (verb === 'delete' && result.stats.removed === 1) {
+            succeeded = true
+          }
+
+          if (verb === 'add' && result.stats.updated === 1) {
+            succeeded = true
+          }
+
+          if (succeeded) {
             // 响应格式正确
             Taro.showToast({
               title: `${verbName}成功`,
               icon: 'success',
               duration: 1000
             })
-            return true
+            return succeeded
           } else {
-            handleError(response)
+            handleError(res)
           }
         })
         // 请求出错
-        .catch(error => handleError(error))
+        .catch(handleError)
     )
   }
 
@@ -243,7 +255,13 @@ export default class Class extends Component<{}, IState> {
       content: '确认删除班级？所有同学都会被强制离开。',
       success: res => {
         if (res.confirm) {
-          this.callClassFunction('delete', '删除')
+          this.callClassFunction('delete', '删除').then(succeeded => {
+            if (succeeded) {
+              setTimeout(() => {
+                Taro.navigateBack()
+              }, 1000)
+            }
+          })
         }
       }
     })
