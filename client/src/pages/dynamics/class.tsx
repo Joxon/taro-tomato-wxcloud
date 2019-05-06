@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { View, Text, Button } from '@tarojs/components'
 import {
   AtGrid,
   AtAvatar,
@@ -78,11 +78,13 @@ export default class Class extends Component<{}, IState> {
       title: '获取班级信息...',
       mask: true
     })
-    getUserFields({ classId: true })
+    return getUserFields({ classId: true })
       .then(fields => {
         const classId = (fields as any).classId as string
         if (classId === '' || classId === null || classId === undefined) {
-          this.setState({ userHasJoinedClass: false })
+          this.setState({
+            userHasJoinedClass: false
+          })
           throw Error(
             'getClass: classId is invalid. Maybe user has not joined a class.'
           )
@@ -105,6 +107,8 @@ export default class Class extends Component<{}, IState> {
         const len = result.data.length
         if (len === 0) {
           this.setState({ userHasJoinedClass: false })
+          // 显式返回用户是否已经加入班级
+          return false
         } else if (len === 1) {
           const aClass = result.data[0] as any
           this.setState({
@@ -114,6 +118,8 @@ export default class Class extends Component<{}, IState> {
             className: aClass.name,
             classmates: aClass.classmates
           })
+          // 显式返回用户是否已经加入班级
+          return true
         } else {
           throw Error('getClass: invalid result.data.length = ' + len)
         }
@@ -129,11 +135,20 @@ export default class Class extends Component<{}, IState> {
   }
 
   componentDidMount () {
-    this.getClass()
-  }
+    this.getClass().then(userHasJoinedClass => {
+      // class?foo=bar
+      // console.log('params: ')
+      // console.log(this.$router.params)
+      const params: any = this.$router.params
 
-  componentDidShow () {
-    this.getClass()
+      // this.state.userHasJoinedClass 默认为true
+      // 必须等getClass()执行完才有真实的userHasJoinedClass
+      if (params.hasOwnProperty('join') && !userHasJoinedClass) {
+        this.setState({
+          classIdToJoin: params.join
+        })
+      }
+    })
   }
 
   callClassFunction (
@@ -270,8 +285,17 @@ export default class Class extends Component<{}, IState> {
     })
   }
 
+  onShareAppMessage (obj: Taro.ShareAppMessageObject) {
+    return {
+      title: '邀请你加入我的班级',
+      path: `/pages/dynamics/class?join=${this.state.classId}`
+    } as Taro.ShareAppMessageReturn
+  }
+
   shareClass () {
-    console.log(this.state.classId)
+    Taro.showShareMenu({
+      withShareTicket: true
+    })
   }
 
   copyClassId () {
@@ -329,12 +353,14 @@ export default class Class extends Component<{}, IState> {
         <View hidden={!user.userHasJoinedClass}>
           <View className='top-view container'>
             <View className='share-button-view' onClick={this.shareClass}>
-              <FontAwesome
-                family='solid'
-                name='share-alt'
-                size={20}
-                color='#333'
-              />
+              <Button open-type='share'>
+                <FontAwesome
+                  family='solid'
+                  name='share-alt'
+                  size={20}
+                  color='#333'
+                />
+              </Button>
             </View>
             <View className='avatar-view'>
               <AtAvatar text='班级' />
