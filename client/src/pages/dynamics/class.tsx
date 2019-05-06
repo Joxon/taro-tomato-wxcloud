@@ -274,6 +274,20 @@ export default class Class extends Component<{}, IState> {
     console.log(this.state.classId)
   }
 
+  copyClassId () {
+    Taro.setClipboardData({
+      data: this.state.classId
+    })
+      .then(() => {
+        // 默认显示：内容已复制
+        // Taro.showToast({
+        //   title: `班级号已复制，快去分享吧~`,
+        //   icon: 'none'
+        // })
+      })
+      .catch(console.error)
+  }
+
   render () {
     const { joinMode, ...user } = this.state
     return (
@@ -327,7 +341,9 @@ export default class Class extends Component<{}, IState> {
             </View>
             <View className='text-view'>
               <Text className='text-normal'>{user.className}\n</Text>
-              <Text className='text-small'>班级号：{user.classId}\n</Text>
+              <Text className='text-small' onClick={this.copyClassId}>
+                班级号（点击复制）：{user.classId}\n
+              </Text>
             </View>
             <View className='leave-button-view'>
               <View hidden={user.userIsOwner}>
