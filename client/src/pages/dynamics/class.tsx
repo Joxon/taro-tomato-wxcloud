@@ -181,6 +181,7 @@ export default class Class extends Component<{}, IState> {
           if (
             (verb === 'add' && result.stats.updated === 1) ||
             (verb === 'join' && result.stats.updated === 1) ||
+            (verb === 'leave' && result.stats.updated === 1) ||
             (verb === 'delete' && result.stats.removed === 1)
           ) {
             // 响应格式正确
@@ -239,7 +240,13 @@ export default class Class extends Component<{}, IState> {
       content: '确认离开班级？',
       success: res => {
         if (res.confirm) {
-          this.callClassFunction('leave', '离开')
+          this.callClassFunction('leave', '离开').then(succeeded => {
+            if (succeeded) {
+              setTimeout(() => {
+                Taro.navigateBack()
+              }, 1000)
+            }
+          })
         }
       }
     })
