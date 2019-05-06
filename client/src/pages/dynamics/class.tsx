@@ -174,28 +174,22 @@ export default class Class extends Component<{}, IState> {
         // 收到响应
         .then(res => {
           const result = res.result as any
-          let succeeded = false
-
-          if (result.stats === undefined) {
+          if (result === null || result.stats === undefined) {
             handleError(res)
           }
 
-          if (verb === 'delete' && result.stats.removed === 1) {
-            succeeded = true
-          }
-
-          if (verb === 'add' && result.stats.updated === 1) {
-            succeeded = true
-          }
-
-          if (succeeded) {
+          if (
+            (verb === 'add' && result.stats.updated === 1) ||
+            (verb === 'join' && result.stats.updated === 1) ||
+            (verb === 'delete' && result.stats.removed === 1)
+          ) {
             // 响应格式正确
             Taro.showToast({
               title: `${verbName}成功`,
               icon: 'success',
               duration: 1000
             })
-            return succeeded
+            return true
           } else {
             handleError(res)
           }
@@ -222,10 +216,12 @@ export default class Class extends Component<{}, IState> {
   }
 
   joinClass () {
+    // sample: 96c1cbbe5ccec2d30c8018613e361140
     const { classIdToJoin } = this.state
-    if (classIdToJoin === '') {
+    const isUUID = /^[0-9a-z]{32}$/
+    if (!isUUID.test(classIdToJoin)) {
       Taro.showToast({
-        title: '班级号不能为空',
+        title: '班级号不合法',
         icon: 'none'
       })
       return
