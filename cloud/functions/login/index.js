@@ -13,37 +13,37 @@ const users = db.collection('users')
 // event 指的是触发云函数的事件，当小程序端调用云函数时，
 // event 就是小程序端调用云函数时传入的参数，外加后端自动注入的小程序用户的 openid 和小程序的 appid。
 // context 对象包含了此处调用的调用信息和运行状态，可以用它来了解服务运行的情况。
+// *********************************************
+// 可获取的三种字段
+// APPID：本小程序在微信服务器上的标识
+// OPENID：用户在本小程序中的唯一标识
+// UNIONID：用户在本开发者的多个服务中的唯一标识
+// *********************************************
+// const {
+//   APPID,
+//   OPENID,
+//   UNIONID
+// } = cloud.getWXContext()
+
+// 登录流程
+// 1. 用户打开小程序，触发服务端调用login
+// 2. 服务端收到OPENID，检索数据库中是否已存在该OPENID
+// 2a. 若不存在，则新建一条默认记录，以OPENID作为主键，并返回
+// 2b. 若存在，则返回已存在的记录
+
+// SQL             vs NoSQL
+// 数据库/database == 数据库/database
+// 表格/table      == 集合/collection
+// 行/row          == 记录，文档/record, document
+// 列/column       == 字段/field
+
+// collection.doc(_id)，其中只能查询_id，自定义字段请用where
 exports.main = async(event, context) => {
-  // *********************************************
-  // 可获取的三种字段
-  // APPID：本小程序在微信服务器上的标识
-  // OPENID：用户在本小程序中的唯一标识
-  // UNIONID：用户在本开发者的多个服务中的唯一标识
-  // *********************************************
-  // const {
-  //   APPID,
-  //   OPENID,
-  //   UNIONID
-  // } = cloud.getWXContext()
-
-  const {
-    OPENID
-  } = cloud.getWXContext()
-
-  // 登录流程
-  // 1. 用户打开小程序，触发服务端调用login
-  // 2. 服务端收到OPENID，检索数据库中是否已存在该OPENID
-  // 2a. 若不存在，则新建一条默认记录，以OPENID作为主键，并返回
-  // 2b. 若存在，则返回已存在的记录
-
-  // SQL             vs NoSQL
-  // 数据库/database == 数据库/database
-  // 表格/table      == 集合/collection
-  // 行/row          == 记录，文档/record, document
-  // 列/column       == 字段/field
-
-  // collection.doc(_id)，其中只能查询_id，自定义字段请用where
   try {
+    const {
+      OPENID
+    } = cloud.getWXContext()
+
     const result = await users.where({
       "_openid": OPENID
     }).get()
@@ -51,11 +51,10 @@ exports.main = async(event, context) => {
     const len = result.data.length
     if (len === 1) {
       // 命中一条记录，自动登录
-      return 'login: OK'
+      return 'login: welcome back'
     } else if (len === 0) {
       // 没有命中记录，自动注册
       // 默认配置
-      const id = new Date().valueOf().toString()
       const countResult = await users.count()
       const userNum = countResult.total
       const newUser = {
@@ -69,14 +68,22 @@ exports.main = async(event, context) => {
         tomato: 0,
         records: [],
         dailyItems: [{
-          id,
+          id: '0',
           name: '睡懒觉',
           tomato: -10
+        }, {
+          id: '1',
+          name: '做家务',
+          tomato: 10
         }],
         rewardItems: [{
-          id,
+          id: '0',
           name: '看电视一小时',
           tomato: -10
+        }, {
+          id: '1',
+          name: '吃一顿麦当劳',
+          tomato: -100
         }],
         // Dynamics
         classId: null,
@@ -84,18 +91,14 @@ exports.main = async(event, context) => {
         age: '3',
         sex: 'M'
       }
-      // 添加新用户信息
-      users.add({
+      // 等待添加新用户信息
+      await users.add({
         data: newUser
       })
-      return 'login: OK'
-      // 直接返回默认配置，无需再次查询数据库
-      // return {
-      //   data: [newUser],
-      //   errMsg: 'login: new user registered'
-      // }
+      // 完成后返回
+      return 'login: new user registered'
     } else {
-      throw Error('login: invalid data.length = ', len)
+      throw Error('login: invalid data.length = ' + len)
     }
   } catch (e) {
     console.error(e)

@@ -6,7 +6,7 @@ cloud.init({
 const db = cloud.database()
 const users = db.collection('users')
 
-exports.main = async (event, context) => {
+exports.main = async(event, context) => {
   try {
     const {
       OPENID
@@ -16,40 +16,29 @@ exports.main = async (event, context) => {
       "_openid": OPENID
     })
 
+    // 获取用户当前的任务列表
     const result = await user.field({
       tasks: true
     }).get()
 
     const len = result.data.length
-    if (len === 1) {
-      const tasks = result.data[0].tasks
-      // console.log('tasks', tasks)
-
-      const task = event.task
-      // console.log('event', event)
-      // console.log('task', task)
-
-      tasks.push(task)
-      // console.log('tasks', tasks)
-
-      return await user.update({
-        data: {
-          tasks
-        }
-      })
-
-      // const result2 = await user.update({
-      //   tasks
-      // })
-      // if (result2.stats.updated === 1) {
-      //   return 'ok'
-      // } else {
-      //   return 'err'
-      // }
-
-    } else {
-      throw Error('addTask: invalid data.length = ', len)
+    if (len !== 1) {
+      throw Error('addTask: invalid data.length = ' + len)
     }
+
+    const tasks = result.data[0].tasks
+
+    // 获取用户待添加的任务
+    const task = event.task
+
+    // 添加到任务列表
+    tasks.push(task)
+
+    return await user.update({
+      data: {
+        tasks
+      }
+    })
   } catch (e) {
     console.error(e)
   }

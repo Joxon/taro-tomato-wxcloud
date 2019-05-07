@@ -154,7 +154,10 @@ export default class Dynamics extends Component<{}, IState> {
                 key={post.timestamp}
                 title={post.userName}
                 note={post.content}
-                extraText={new Date(post.timestamp).toLocaleDateString()}
+                extraText={new Date(post.timestamp)
+                  .toISOString()
+                  .split('T')[0]
+                  .replace(/-/g, '')} // yyyymmdd
               />
             ))}
           </AtList>

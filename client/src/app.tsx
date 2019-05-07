@@ -85,10 +85,20 @@ class App extends Taro.Component {
         env: 'dev-i1tq4',
         traceUser: true
       })
-      Taro.cloud.callFunction({
+      ;(Taro.cloud.callFunction({
         name: 'login',
-        data: {},
-        success: res => console.log(res)
+        data: {}
+      }) as Promise<Taro.cloud.ICloud.CallFunctionResult>).then(res => {
+        if (res.result === 'login: new user registered') {
+          Taro.showModal({
+            title: '欢迎',
+            content:
+              '欢迎使用小番茄！' +
+              '在这里，您可以为孩子制定未来一周的计划，并用“番茄钟”提高孩子的工作效率。' +
+              '另外，您还可以使用“小番茄”，为孩子提供激励。' +
+              '更多功能，期待您的体验~'
+          })
+        }
       })
     }
   }

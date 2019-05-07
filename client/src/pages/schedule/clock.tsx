@@ -63,7 +63,11 @@ class TomatoClock extends Component<IProps, IState> {
 
         Taro.showModal({
           title: '确认开始？',
-          content: '一旦开始就无法暂停哦~确认要开始吗？',
+          content:
+            '欢迎使用番茄钟！您需要注意：' +
+            '1. 番茄钟一旦开始就无法暂停；' +
+            '2. 为了保证工作专注，请不要离开本页面，否则番茄钟可能会被重置。' +
+            '确认要开始吗？',
           success: respond => {
             if (respond.confirm) {
               this.startTicking()

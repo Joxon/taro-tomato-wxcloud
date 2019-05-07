@@ -160,7 +160,10 @@ export default class Tomato extends Component<{}, IState> {
                         : ''
                 }
                 note={record.reason}
-                extraText={new Date(record.timestamp).toLocaleDateString()}
+                extraText={new Date(record.timestamp)
+                  .toISOString()
+                  .split('T')[0]
+                  .replace(/-/g, '')} // yyyymmdd
               />
             ))}
           </AtList>
