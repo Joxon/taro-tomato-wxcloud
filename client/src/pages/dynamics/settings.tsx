@@ -5,8 +5,14 @@ import { BaseEventOrig } from '@tarojs/components/types/common'
 import { AtButton, AtForm, AtInput } from 'taro-ui'
 // import { observer, inject } from '@tarojs/mobx'
 
-import { TSex, TSexName, TAge } from './index.d'
-import { AGES, SEXNAMES, MINUTES_TO_REST, MINUTES_TO_WORK } from './constants'
+import { TSex, TAge } from './index.d'
+import {
+  AGES,
+  SEXNAMES,
+  MINUTES_TO_REST,
+  MINUTES_TO_WORK,
+  SEXES
+} from './constants'
 import { getUserFields } from '../../utils'
 
 interface IProps {
@@ -16,7 +22,6 @@ interface IProps {
 interface IState {
   name: string
   sexIndex: number
-  sexName: TSexName
   age: TAge
   minutesToRest: number
   minutesToWork: number
@@ -40,7 +45,6 @@ export default class Settings extends Component<IProps, IState> {
   static defaultState: IState = {
     name: '加载中...',
     sexIndex: 0,
-    sexName: '男',
     age: '3',
     minutesToRest: 5,
     minutesToWork: 25
@@ -49,22 +53,37 @@ export default class Settings extends Component<IProps, IState> {
   state: IState = Settings.defaultState
 
   getSettings () {
+    Taro.showLoading({
+      title: '加载用户信息...',
+      mask: true
+    })
     getUserFields({
       name: true,
       sex: true,
       age: true,
       secondsToRest: true,
       secondsToWork: true
-    }).then((fields: ISettings) => {
-      this.setState({
-        name: fields.name,
-        sexIndex: fields.sex === 'M' ? 0 : 1,
-        sexName: fields.sex === 'M' ? '男' : '女',
-        age: fields.age,
-        minutesToRest: fields.secondsToRest / 60,
-        minutesToWork: fields.secondsToWork / 60
-      })
     })
+      .then((fields: ISettings) => {
+        Taro.hideLoading()
+        this.setState({
+          name: fields.name,
+          sexIndex: fields.sex === 'M' ? 0 : 1,
+          age: fields.age,
+          minutesToRest: fields.secondsToRest / 60,
+          minutesToWork: fields.secondsToWork / 60
+        })
+      })
+      .catch(err => {
+        Taro.hideLoading()
+        Taro.showToast({
+          title: `加载失败，发生错误${err}`,
+          icon: 'none'
+        })
+        console.error(err)
+      })
+    // 小程序不支持finally
+    // .finally(() => Taro.hideLoading())
   }
 
   componentDidMount () {
@@ -86,10 +105,17 @@ export default class Settings extends Component<IProps, IState> {
     })
 
     // 准备数据
-    const { name, sexName, age, minutesToRest, minutesToWork } = this.state
+    const { name, age, minutesToRest, minutesToWork, sexIndex } = this.state
+    const sex: TSex = SEXES[sexIndex]
+    console.log('TCL: ----------------------------------------')
+    console.log('TCL: Settings -> editSettings -> sex', sex)
+    console.log('TCL: ----------------------------------------')
+    console.log('TCL: --------------------------------------------------')
+    console.log('TCL: Settings -> editSettings -> sexIndex', sexIndex)
+    console.log('TCL: --------------------------------------------------')
     const settings: ISettings = {
       name,
-      sex: sexName === '女' ? 'F' : 'M',
+      sex,
       age,
       secondsToRest: minutesToRest * 60,
       secondsToWork: minutesToWork * 60
@@ -151,17 +177,9 @@ export default class Settings extends Component<IProps, IState> {
 
   handleSexPicker (event: BaseEventOrig<PickerSelectorProps>) {
     const val: number = event.detail.value
-    if (val === 0) {
-      this.setState({
-        sexName: '男',
-        sexIndex: 0
-      })
-    } else {
-      this.setState({
-        sexName: '女',
-        sexIndex: 1
-      })
-    }
+    this.setState({
+      sexIndex: val
+    })
   }
 
   handleAgePicker (event: BaseEventOrig<PickerSelectorProps>) {
@@ -206,7 +224,7 @@ export default class Settings extends Component<IProps, IState> {
             value={user.sexIndex}
             onChange={this.handleSexPicker}
           >
-            {user.sexName}
+            {SEXNAMES[user.sexIndex]}
           </Picker>
         </View>
       </View>
@@ -272,7 +290,7 @@ export default class Settings extends Component<IProps, IState> {
     )
 
     return (
-      <AtForm className='form' onSubmit={this.onSubmit.bind(this)}>
+      <AtForm className='form' onSubmit={this.onSubmit}>
         {userNameInput}
         {sexPicker}
         {agePicker}

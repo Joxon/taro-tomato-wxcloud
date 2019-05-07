@@ -1,6 +1,13 @@
 .clock {
   padding-top: 50rpx;
 
+  .container {
+    margin: 10rpx 20rpx;
+    padding: 20rpx;
+    background-color: white;
+    border-radius: 50rpx;
+  }
+
   .info {
     text-align: center;
   }

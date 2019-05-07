@@ -70,7 +70,7 @@ class App extends Taro.Component {
       ],
       color: '#333333',
       selectedColor: '#fa8072',
-      backgroundColor: '#eeeeee',
+      backgroundColor: '#ffffff',
       borderStyle: 'white'
     },
     cloud: true

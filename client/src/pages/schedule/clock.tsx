@@ -31,18 +31,16 @@ class TomatoClock extends Component<IProps, IState> {
   }
 
   static defaultState: IState = {
-    seconds: 10,
+    seconds: 0,
     name: '加载中...',
-    tomatoBonus: 10
+    tomatoBonus: 0
   }
-
-  readonly defaultSecondsToWork = 25 * 60
-  secondsToWork: number
-  readonly defaultSecondsToRest = 5 * 60
-  secondsToRest: number
 
   state: IState = TomatoClock.defaultState
   preload: IPreload
+
+  secondsToWork: number
+  secondsToRest: number
 
   componentDidMount () {
     this.preload = this.$router.preload
@@ -219,12 +217,12 @@ class TomatoClock extends Component<IProps, IState> {
 
     return (
       <View className='clock'>
-        <View className='info'>
+        <View className='info container'>
           <View className='name'>{`当前任务：${s.name}`}</View>
           <View className='tomato'>{`番茄奖励：${s.tomatoBonus}`}</View>
         </View>
 
-        <View className='digital'>
+        <View className='digital container'>
           <Text className='min'>{min}</Text>
           <Text className='sec'>:{sec}</Text>
         </View>
