@@ -1,0 +1,39 @@
+@startuml chap3-credit
+
+/'
+' The general default behavior when building diagram is top to bottom.
+' You may change to left to right using the left to right direction command.
+' The result is often better with this direction.
+'/
+
+left to right direction
+
+/' http://plantuml.com/use-case-diagram '/
+
+actor 家长 as parent
+
+rectangle 积分管理 {
+  usecase 日常奖惩管理 as daily
+  usecase 兑换奖励管理 as reward
+  usecase 查看历史 as history
+
+  parent -- (daily)
+  parent -- (reward)
+  parent -- (history)
+
+  (daily) ..> (添加奖惩) : <<包含>>
+  (daily) ..> (编辑奖惩) : <<包含>>
+  (daily) ..> (记录奖惩) : <<包含>>
+  (daily) ..> (查看奖惩) : <<包含>>
+  (daily) ..> (删除奖惩) : <<包含>>
+
+  (reward) ..> (添加奖励) : <<包含>>
+  (reward) ..> (编辑奖励) : <<包含>>
+  (reward) ..> (兑换奖励) : <<包含>>
+  (reward) ..> (查看奖励) : <<包含>>
+  (reward) ..> (删除奖励) : <<包含>>
+
+  (history) <.. (搜索栏过滤) : <<扩展>>
+}
+
+@enduml

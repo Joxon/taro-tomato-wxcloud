@@ -1,0 +1,27 @@
+@startuml chap4-dynamics
+
+left to right direction
+
+card 动态管理模块 as sub3
+
+card 个人设定管理 as settings
+card 班级管理 as class
+card 班级动态查看 as dynamics
+
+sub3 --> settings
+sub3 --> class
+sub3 --> dynamics
+
+card 个人资料设定 as profile
+card 番茄钟设定 as clock
+
+settings --> profile
+settings --> clock
+
+card 班级创建或加入 as c1
+card 班级删除或离开 as c2
+
+class --> c1
+class --> c2
+
+@enduml

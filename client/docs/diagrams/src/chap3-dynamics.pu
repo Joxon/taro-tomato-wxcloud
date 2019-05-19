@@ -1,0 +1,30 @@
+@startuml chap3-dynamics
+
+/'
+' The general default behavior when building diagram is top to bottom.
+' You may change to left to right using the left to right direction command.
+' The result is often better with this direction.
+'/
+
+left to right direction
+
+/' http://plantuml.com/use-case-diagram '/
+
+actor 家长 as parent
+
+rectangle 动态管理 {
+  usecase 班级管理 as class
+  usecase 个人设定 as settings
+
+  parent -- (class)
+  parent -- (settings)
+  parent -- (查看动态)
+
+  (class) ..> (删除或离开班级) : <<包含>>
+  (class) ..> (创建或加入班级) : <<包含>>
+
+  (settings) ..> (番茄钟时长设定) : <<包含>>
+  (settings) ..> (个人资料设定) : <<包含>>
+}
+
+@enduml

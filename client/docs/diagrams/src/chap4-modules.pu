@@ -1,0 +1,37 @@
+@startuml chap4-modules
+
+left to right direction
+
+card 儿童习惯养成系统 as sys
+
+card 日程管理模块 as sub1
+card 积分管理模块 as sub2
+card 动态管理模块 as sub3
+
+sys --> sub1
+sys --> sub2
+sys --> sub3
+
+card 任务管理 as task
+card 番茄钟启停 as clock
+
+sub1 --> task
+sub1 --> clock
+
+card 兑换奖励管理 as reward
+card 日常奖惩管理 as daily
+card 历史记录查询 as record
+
+sub2 --> reward
+sub2 --> daily
+sub2 --> record
+
+card 个人设定管理 as settings
+card 班级管理 as class
+card 班级动态查看 as dynamics
+
+sub3 --> settings
+sub3 --> class
+sub3 --> dynamics
+
+@enduml

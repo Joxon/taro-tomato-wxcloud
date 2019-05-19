@@ -1,0 +1,45 @@
+@startuml chap4-credit
+
+left to right direction
+
+card 积分管理模块 as sub2
+
+card 兑换奖励管理 as reward
+card 日常奖惩管理 as daily
+card 历史记录查询 as record
+
+sub2 --> reward
+sub2 --> daily
+sub2 --> record
+
+card 奖励添加 as add1
+card 奖励查看 as view1
+card 奖励编辑 as edit1
+card 奖励删除 as del1
+card 奖励兑换 as rec1
+
+reward --> add1
+reward --> view1
+reward --> edit1
+reward --> del1
+reward --> rec1
+
+card 奖惩添加 as add2
+card 奖惩查看 as view2
+card 奖惩编辑 as edit2
+card 奖惩删除 as del2
+card 奖惩记录 as rec2
+
+daily --> add2
+daily --> view2
+daily --> edit2
+daily --> del2
+daily --> rec2
+
+card 显示所有记录 as all
+card 搜索栏过滤记录 as search
+
+record --> all
+record --> search
+
+@enduml

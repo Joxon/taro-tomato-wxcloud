@@ -1,0 +1,25 @@
+@startuml chap3-task
+
+/'
+' The general default behavior when building diagram is top to bottom.
+' You may change to left to right using the left to right direction command.
+' The result is often better with this direction.
+'/
+
+left to right direction
+
+/' http://plantuml.com/use-case-diagram '/
+
+actor 家长 as parent
+
+rectangle 日程管理 {
+  usecase 任务管理 as task
+  parent -- (task)
+  (task) ..> (删除任务) : <<包含>>
+  (task) ..> (编辑任务) : <<包含>>
+  (task) ..> (启动番茄钟) : <<包含>>
+  (task) ..> (查看任务) : <<包含>>
+  (task) ..> (添加任务) : <<包含>>
+}
+
+@enduml

@@ -107,12 +107,6 @@ export default class Settings extends Component<IProps, IState> {
     // 准备数据
     const { name, age, minutesToRest, minutesToWork, sexIndex } = this.state
     const sex: TSex = SEXES[sexIndex]
-    console.log('TCL: ----------------------------------------')
-    console.log('TCL: Settings -> editSettings -> sex', sex)
-    console.log('TCL: ----------------------------------------')
-    console.log('TCL: --------------------------------------------------')
-    console.log('TCL: Settings -> editSettings -> sexIndex', sexIndex)
-    console.log('TCL: --------------------------------------------------')
     const settings: ISettings = {
       name,
       sex,

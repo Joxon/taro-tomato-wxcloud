@@ -1,0 +1,22 @@
+@startuml chap4-architecture
+
+rectangle 用户界面层 {
+  card 微信小程序
+}
+
+rectangle 业务逻辑层 {
+  rectangle 小程序后端 {
+    card 业务数据处理
+  }
+
+  rectangle 小程序前端 {
+    card 用户输入校验
+    card 用户交互处理
+  }
+}
+
+rectangle 数据访问层 {
+  card 业务数据持久化
+}
+
+@enduml

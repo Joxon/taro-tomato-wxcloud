@@ -1,0 +1,13 @@
+@startuml chap5-init
+
+(*) --> "小程序云能力初始化"
+--> "检查后端数据库\n是否已存在用户档案"
+
+if "Taro.cloud.callFunction({name: login})" then
+  -->[不存在该用户] "后端建立用户条目\n前端显示欢迎提示"
+  --> "进入小程序界面"
+else
+  -->[存在该用户] "进入小程序界面"
+endif
+
+@enduml

@@ -1,0 +1,39 @@
+@startuml chap4-task
+
+left to right direction
+
+card 日程管理模块 as sub1
+
+card 任务管理 as task
+card 番茄钟启停 as clock
+
+sub1 --> task
+sub1 --> clock
+
+card 任务添加 as add
+card 任务查看 as view
+card 任务编辑 as edit
+card 任务删除 as del
+
+task --> add
+task --> view
+task --> edit
+task --> del
+
+card 日程视图 as v1
+card 一周视图 as v2
+
+view --> v1
+view --> v2
+
+card 番茄钟启动 as start
+card 番茄钟停止 as stop
+card 增加奖励 as bonus
+card 减少奖励 as punish
+
+clock --> start
+clock --> stop
+clock --> bonus
+clock --> punish
+
+@enduml
