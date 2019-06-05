@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="706px" preserveAspectRatio="none" style="width:231px;height:706px;" version="1.1" viewBox="0 0 231 706" width="231px" zoomAndPan="magnify"><defs><filter height="300%" id="fq8we4aeewai8" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--cluster 日程管理--><rect fill="#FFFFFF" filter="url(#fq8we4aeewai8)" height="175" style="stroke: #000000; stroke-width: 1.5;" width="137" x="83" y="24"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="60" x="121.5" y="42.0439">日程管理</text><!--cluster 积分管理--><rect fill="#FFFFFF" filter="url(#fq8we4aeewai8)" height="224" style="stroke: #000000; stroke-width: 1.5;" width="117" x="93" y="223"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="60" x="121.5" y="241.0439">积分管理</text><!--cluster 动态管理--><rect fill="#FFFFFF" filter="url(#fq8we4aeewai8)" height="224" style="stroke: #000000; stroke-width: 1.5;" width="117" x="93" y="471"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="60" x="121.5" y="489.0439">动态管理</text><ellipse cx="151.598" cy="166.02" fill="#FEFECE" filter="url(#fq8we4aeewai8)" rx="42.598" ry="16.52" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="56" x="123.598" y="172.08">任务管理</text><ellipse cx="151.4975" cy="79.02" fill="#FEFECE" filter="url(#fq8we4aeewai8)" rx="52.4975" ry="16.52" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="70" x="116.4975" y="85.08">启动番茄钟</text><ellipse cx="151.598" cy="278.02" fill="#FEFECE" filter="url(#fq8we4aeewai8)" rx="42.598" ry="16.52" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="56" x="123.598" y="284.08">日常奖惩</text><ellipse cx="151.598" cy="346.02" fill="#FEFECE" filter="url(#fq8we4aeewai8)" rx="42.598" ry="16.52" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="56" x="123.598" y="352.08">兑换奖励</text><ellipse cx="151.598" cy="414.02" fill="#FEFECE" filter="url(#fq8we4aeewai8)" rx="42.598" ry="16.52" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="56" x="123.598" y="420.08">查看历史</text><ellipse cx="151.598" cy="526.02" fill="#FEFECE" filter="url(#fq8we4aeewai8)" rx="42.598" ry="16.52" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="56" x="123.598" y="532.08">班级管理</text><ellipse cx="151.598" cy="594.02" fill="#FEFECE" filter="url(#fq8we4aeewai8)" rx="42.598" ry="16.52" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="56" x="123.598" y="600.08">个人设定</text><ellipse cx="151.598" cy="662.02" fill="#FEFECE" filter="url(#fq8we4aeewai8)" rx="42.598" ry="16.52" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="56" x="123.598" y="668.08">查看动态</text><!--entity parent--><ellipse cx="21" cy="381" fill="#FEFECE" filter="url(#fq8we4aeewai8)" rx="8" ry="8" style="stroke: #A80036; stroke-width: 2.0;"/><path d="M21,389 L21,416 M8,397 L34,397 M21,416 L8,431 M21,416 L34,431 " fill="none" filter="url(#fq8we4aeewai8)" style="stroke: #A80036; stroke-width: 2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="28" x="7" y="454.0439">家长</text><!--link parent to task--><path d="M29.8294,370.786 C37.5743,335.231 51.7071,284.454 75,245 C90.1427,219.351 115.109,195.449 132.153,180.798 " fill="none" id="parent-task" style="stroke: #A80036; stroke-width: 1.0;"/><!--link task to 启动番茄钟--><path d="M151.5,149.226 C151.5,135.505 151.5,115.992 151.5,101.016 " fill="none" id="task-启动番茄钟" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="#A80036" points="151.5,95.723,147.5,104.723,151.5,100.723,155.5,104.723,151.5,95.723" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="40" x="119" y="128.8979">«包含»</text><!--link parent to 日常奖惩--><path d="M36.033,372.66 C44.6535,352.284 57.4535,328.589 75,312 C86.6995,300.939 102.6131,293.048 116.814,287.672 " fill="none" id="parent-日常奖惩" style="stroke: #A80036; stroke-width: 1.0;"/><!--link parent to 兑换奖励--><path d="M36.0509,404.179 C46.5386,397.05 61.3528,387.398 75,380 C90.0391,371.847 107.411,363.927 121.696,357.785 " fill="none" id="parent-兑换奖励" style="stroke: #A80036; stroke-width: 1.0;"/><!--link parent to 查看历史--><path d="M36.2427,414 C53.6244,414 83.785,414 108.755,414 " fill="none" id="parent-查看历史" style="stroke: #A80036; stroke-width: 1.0;"/><!--link parent to 班级管理--><path d="M36.2427,426.414 C60.0282,447.145 107.743,488.733 133.341,511.044 " fill="none" id="parent-班级管理" style="stroke: #A80036; stroke-width: 1.0;"/><!--link parent to 个人设定--><path d="M28.392,457.038 C35.1218,488.897 48.5901,531.534 75,560 C85.8527,571.698 101.4883,579.643 115.719,584.892 " fill="none" id="parent-个人设定" style="stroke: #A80036; stroke-width: 1.0;"/><!--link parent to 查看动态--><path d="M21.9748,457.086 C24.1603,504.168 34.4236,579.356 75,628 C85.2212,640.2533 100.773,648.2729 115.111,653.4264 " fill="none" id="parent-查看动态" style="stroke: #A80036; stroke-width: 1.0;"/><!--
+@startuml chap3-parent
+
+
+left to right direction
+
+
+actor 家长 as parent
+
+rectangle 日程管理 {
+  usecase 任务管理 as task
+  parent - - (task)
+  (task) .> (启动番茄钟) : <<包含>>
+}
+
+rectangle 积分管理 {
+  parent - - (日常奖惩)
+  parent - - (兑换奖励)
+  parent - - (查看历史)
+}
+
+rectangle 动态管理 {
+  parent - - (班级管理)
+  parent - - (个人设定)
+  parent - - (查看动态)
+}
+
+@enduml
+
+PlantUML version 1.2019.06(Sat May 25 01:10:25 CST 2019)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 1.8.0_212-b10
+Operating System: Windows 10
+OS Version: 10.0
+Default Encoding: GBK
+Language: en
+Country: US
+--></g></svg>

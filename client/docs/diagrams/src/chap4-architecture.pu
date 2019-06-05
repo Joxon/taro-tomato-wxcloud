@@ -1,22 +1,39 @@
 @startuml chap4-architecture
 
+top to bottom direction
+
 rectangle 用户界面层 {
-  card 微信小程序
+  card 日程模块界面
+  card 积分模块界面
+  card 动态模块界面
 }
 
 rectangle 业务逻辑层 {
-  rectangle 小程序后端 {
-    card 业务数据处理
-  }
+  card 日程前端逻辑
+  card 积分前端逻辑
+  card 动态前端逻辑
 
-  rectangle 小程序前端 {
-    card 用户输入校验
-    card 用户交互处理
-  }
+  card "task APIs" as tapi
+  card "record, item APIs" as rapi
+  card "class APIs" as capi
 }
 
 rectangle 数据访问层 {
-  card 业务数据持久化
+  card "task CRUD" as tcrud
+  card "record, item CRUD" as rcrud
+  card "class CRUD" as ccrud
 }
+
+日程模块界面 <--> 日程前端逻辑: 输入后反馈
+日程前端逻辑 <--> tapi: 调用后返回
+tapi --> tcrud: 进行
+
+积分模块界面 <--> 积分前端逻辑: 输入后反馈
+积分前端逻辑 <--> rapi: 调用后返回
+rapi --> rcrud: 进行
+
+动态模块界面 <--> 动态前端逻辑: 输入后反馈
+动态前端逻辑 <--> capi: 调用后返回
+capi --> ccrud: 进行
 
 @enduml

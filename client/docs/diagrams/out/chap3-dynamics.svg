@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="327px" preserveAspectRatio="none" style="width:456px;height:327px;" version="1.1" viewBox="0 0 456 327" width="456px" zoomAndPan="magnify"><defs><filter height="300%" id="fdjo34j3i716j" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--cluster 动态管理--><rect fill="#FFFFFF" filter="url(#fdjo34j3i716j)" height="292" style="stroke: #000000; stroke-width: 1.5;" width="362" x="83" y="24"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="60" x="234" y="42.0439">动态管理</text><ellipse cx="141.598" cy="141.02" fill="#FEFECE" filter="url(#fdjo34j3i716j)" rx="42.598" ry="16.52" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="56" x="113.598" y="147.08">班级管理</text><ellipse cx="141.598" cy="209.02" fill="#FEFECE" filter="url(#fdjo34j3i716j)" rx="42.598" ry="16.52" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="56" x="113.598" y="215.08">个人设定</text><ellipse cx="141.598" cy="277.02" fill="#FEFECE" filter="url(#fdjo34j3i716j)" rx="42.598" ry="16.52" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="56" x="113.598" y="283.08">查看动态</text><ellipse cx="357.4534" cy="147.1907" fill="#FEFECE" filter="url(#fdjo34j3i716j)" rx="71.4534" ry="16.6907" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="98" x="308.4534" y="153.2507">删除或离开班级</text><ellipse cx="357.4534" cy="79.1907" fill="#FEFECE" filter="url(#fdjo34j3i716j)" rx="71.4534" ry="16.6907" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="98" x="308.4534" y="85.2507">创建或加入班级</text><ellipse cx="357.4534" cy="283.1907" fill="#FEFECE" filter="url(#fdjo34j3i716j)" rx="71.4534" ry="16.6907" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="98" x="308.4534" y="289.2507">番茄钟时长设定</text><ellipse cx="357.397" cy="215.02" fill="#FEFECE" filter="url(#fdjo34j3i716j)" rx="62.397" ry="16.52" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="84" x="315.397" y="221.08">个人资料设定</text><!--entity parent--><ellipse cx="21" cy="176" fill="#FEFECE" filter="url(#fdjo34j3i716j)" rx="8" ry="8" style="stroke: #A80036; stroke-width: 2.0;"/><path d="M21,184 L21,211 M8,192 L34,192 M21,211 L8,226 M21,211 L34,226 " fill="none" filter="url(#fdjo34j3i716j)" style="stroke: #A80036; stroke-width: 2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="28" x="7" y="249.0439">家长</text><!--link parent to class--><path d="M36.1765,199.403 C46.7266,192.386 61.564,182.775 75,175 C87.7528,167.62 102.2657,160.01 114.384,153.865 " fill="none" id="parent-class" style="stroke: #A80036; stroke-width: 1.0;"/><!--link parent to settings--><path d="M36.0588,209 C51.447,209 76.8479,209 98.7461,209 " fill="none" id="parent-settings" style="stroke: #A80036; stroke-width: 1.0;"/><!--link parent to 查看动态--><path d="M36.1765,218.597 C46.7266,225.614 61.564,235.225 75,243 C87.7528,250.3797 102.2657,257.9903 114.384,264.1352 " fill="none" id="parent-查看动态" style="stroke: #A80036; stroke-width: 1.0;"/><!--link class to 删除或离开班级--><path d="M183.698,143.6 C193.618,144.144 204.184,144.657 214,145 C235.633,145.757 259.122,146.23 280.673,146.525 " fill="none" id="class-删除或离开班级" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="#A80036" points="285.816,146.592,276.8694,142.474,280.8164,146.5263,276.7642,150.4733,285.816,146.592" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="40" x="215" y="141.8979">«包含»</text><!--link class to 创建或加入班级--><path d="M175.938,131.312 C211.182,121.102 267.064,104.911 307.329,93.246 " fill="none" id="class-创建或加入班级" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="#A80036" points="312.159,91.846,302.4014,90.5084,307.3565,93.2373,304.6275,98.1924,312.159,91.846" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="40" x="215" y="104.8979">«包含»</text><!--link settings to 番茄钟时长设定--><path d="M170.094,221.32 C183.266,227.01 199.323,233.6693 214,239 C244.357,250.0253 278.962,260.7526 306.469,268.8548 " fill="none" id="settings-番茄钟时长设定" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="#A80036" points="311.52,270.3366,304.0112,263.9633,306.7225,268.9281,301.7577,271.6394,311.52,270.3366" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="40" x="215" y="235.8979">«包含»</text><!--link settings to 个人资料设定--><path d="M184.015,210.164 C214.136,211.008 255.507,212.168 290.18,213.141 " fill="none" id="settings-个人资料设定" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="#A80036" points="295.246,213.283,286.3627,209.0301,290.248,213.1416,286.1365,217.0269,295.246,213.283" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="40" x="215" y="207.8979">«包含»</text><!--
+@startuml chap3-dynamics
+
+
+left to right direction
+
+
+actor 家长 as parent
+
+rectangle 动态管理 {
+  usecase 班级管理 as class
+  usecase 个人设定 as settings
+
+  parent - - (class)
+  parent - - (settings)
+  parent - - (查看动态)
+
+  (class) ..> (删除或离开班级) : <<包含>>
+  (class) ..> (创建或加入班级) : <<包含>>
+
+  (settings) ..> (番茄钟时长设定) : <<包含>>
+  (settings) ..> (个人资料设定) : <<包含>>
+}
+
+@enduml
+
+PlantUML version 1.2019.06(Sat May 25 01:10:25 CST 2019)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 1.8.0_212-b10
+Operating System: Windows 10
+OS Version: 10.0
+Default Encoding: GBK
+Language: en
+Country: US
+--></g></svg>

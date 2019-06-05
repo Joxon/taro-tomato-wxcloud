@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="224px" preserveAspectRatio="none" style="width:463px;height:224px;" version="1.1" viewBox="0 0 463 224" width="463px" zoomAndPan="magnify"><defs><filter height="300%" id="fn8rwhq4p9seh" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--entity sub3--><rect fill="#FEFECE" filter="url(#fn8rwhq4p9seh)" height="25.1201" style="stroke: #000000; stroke-width: 1.5;" width="104" x="6" y="128"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="84" x="16" y="147.0439">动态管理模块</text><!--entity settings--><rect fill="#FEFECE" filter="url(#fn8rwhq4p9seh)" height="25.1201" style="stroke: #000000; stroke-width: 1.5;" width="104" x="170" y="68"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="84" x="180" y="87.0439">个人设定管理</text><!--entity class--><rect fill="#FEFECE" filter="url(#fn8rwhq4p9seh)" height="25.1201" style="stroke: #000000; stroke-width: 1.5;" width="76" x="184" y="128"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="56" x="194" y="147.0439">班级管理</text><!--entity dynamics--><rect fill="#FEFECE" filter="url(#fn8rwhq4p9seh)" height="25.1201" style="stroke: #000000; stroke-width: 1.5;" width="104" x="170" y="188"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="84" x="180" y="207.0439">班级动态查看</text><!--entity profile--><rect fill="#FEFECE" filter="url(#fn8rwhq4p9seh)" height="25.1201" style="stroke: #000000; stroke-width: 1.5;" width="104" x="341" y="8"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="84" x="351" y="27.0439">个人资料设定</text><!--entity clock--><rect fill="#FEFECE" filter="url(#fn8rwhq4p9seh)" height="25.1201" style="stroke: #000000; stroke-width: 1.5;" width="90" x="348" y="68"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="70" x="358" y="87.0439">番茄钟设定</text><!--entity c1--><rect fill="#FEFECE" filter="url(#fn8rwhq4p9seh)" height="25.1201" style="stroke: #000000; stroke-width: 1.5;" width="118" x="334" y="128"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="98" x="344" y="147.0439">班级创建或加入</text><!--entity c2--><rect fill="#FEFECE" filter="url(#fn8rwhq4p9seh)" height="25.1201" style="stroke: #000000; stroke-width: 1.5;" width="118" x="334" y="188"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="98" x="344" y="207.0439">班级删除或离开</text><!--link sub3 to settings--><path d="M92.9605,127.922 C118.989,118.2818 154.935,104.969 182.115,94.902 " fill="none" id="sub3-settings" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="187.084,93.061,177.2551,92.4344,182.395,94.7969,180.0325,99.9368,187.084,93.061" style="stroke: #A80036; stroke-width: 1.0;"/><!--link sub3 to class--><path d="M110.258,140.5 C132.305,140.5 157.767,140.5 178.712,140.5 " fill="none" id="sub3-class" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="183.936,140.5,174.936,136.5,178.936,140.5,174.936,144.5,183.936,140.5" style="stroke: #A80036; stroke-width: 1.0;"/><!--link sub3 to dynamics--><path d="M92.9605,153.078 C118.989,162.7182 154.935,176.0314 182.115,186.0983 " fill="none" id="sub3-dynamics" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="187.084,187.9386,180.0324,181.0629,182.395,186.2028,177.2551,188.5653,187.084,187.9386" style="stroke: #A80036; stroke-width: 1.0;"/><!--link settings to profile--><path d="M258.428,67.922 C285.694,58.242 323.391,44.858 351.788,34.777 " fill="none" id="settings-profile" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="356.619,33.061,346.7994,32.3029,351.9072,34.734,349.4761,39.8418,356.619,33.061" style="stroke: #A80036; stroke-width: 1.0;"/><!--link settings to clock--><path d="M274.164,80.5 C295.93,80.5 321.209,80.5 342.76,80.5 " fill="none" id="settings-clock" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="347.868,80.5,338.868,76.5,342.868,80.5,338.868,84.5,347.868,80.5" style="stroke: #A80036; stroke-width: 1.0;"/><!--link class to c1--><path d="M260.088,140.5 C280.141,140.5 305.463,140.5 328.546,140.5 " fill="none" id="class-c1" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="333.742,140.5,324.742,136.5,328.742,140.5,324.742,144.5,333.742,140.5" style="stroke: #A80036; stroke-width: 1.0;"/><!--link class to c2--><path d="M258.428,153.078 C285.694,162.7582 323.391,176.1419 351.788,186.2234 " fill="none" id="class-c2" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="356.619,187.9386,349.4759,181.158,351.9071,186.2657,346.7994,188.6969,356.619,187.9386" style="stroke: #A80036; stroke-width: 1.0;"/><!--
+@startuml chap4-dynamics
+
+left to right direction
+
+card 动态管理模块 as sub3
+
+card 个人设定管理 as settings
+card 班级管理 as class
+card 班级动态查看 as dynamics
+
+sub3 - -> settings
+sub3 - -> class
+sub3 - -> dynamics
+
+card 个人资料设定 as profile
+card 番茄钟设定 as clock
+
+settings - -> profile
+settings - -> clock
+
+card 班级创建或加入 as c1
+card 班级删除或离开 as c2
+
+class - -> c1
+class - -> c2
+
+@enduml
+
+PlantUML version 1.2019.06(Sat May 25 01:10:25 CST 2019)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 1.8.0_212-b10
+Operating System: Windows 10
+OS Version: 10.0
+Default Encoding: GBK
+Language: en
+Country: US
+--></g></svg>

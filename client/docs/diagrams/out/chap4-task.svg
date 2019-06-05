@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="464px" preserveAspectRatio="none" style="width:557px;height:464px;" version="1.1" viewBox="0 0 557 464" width="557px" zoomAndPan="magnify"><defs><filter height="300%" id="fvzgidkm44i6u" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--entity sub1--><rect fill="#FEFECE" filter="url(#fvzgidkm44i6u)" height="25.1201" style="stroke: #000000; stroke-width: 1.5;" width="104" x="6" y="218"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="84" x="16" y="237.0439">日程管理模块</text><!--entity task--><rect fill="#FEFECE" filter="url(#fvzgidkm44i6u)" height="25.1201" style="stroke: #000000; stroke-width: 1.5;" width="76" x="177" y="128"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="56" x="187" y="147.0439">任务管理</text><!--entity clock--><rect fill="#FEFECE" filter="url(#fvzgidkm44i6u)" height="25.1201" style="stroke: #000000; stroke-width: 1.5;" width="90" x="170" y="308"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="70" x="180" y="327.0439">番茄钟启停</text><!--entity add--><rect fill="#FEFECE" filter="url(#fvzgidkm44i6u)" height="25.1201" style="stroke: #000000; stroke-width: 1.5;" width="76" x="327" y="8"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="56" x="337" y="27.0439">任务添加</text><!--entity view--><rect fill="#FEFECE" filter="url(#fvzgidkm44i6u)" height="25.1201" style="stroke: #000000; stroke-width: 1.5;" width="76" x="327" y="68"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="56" x="337" y="87.0439">任务查看</text><!--entity edit--><rect fill="#FEFECE" filter="url(#fvzgidkm44i6u)" height="25.1201" style="stroke: #000000; stroke-width: 1.5;" width="76" x="327" y="128"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="56" x="337" y="147.0439">任务编辑</text><!--entity del--><rect fill="#FEFECE" filter="url(#fvzgidkm44i6u)" height="25.1201" style="stroke: #000000; stroke-width: 1.5;" width="76" x="327" y="188"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="56" x="337" y="207.0439">任务删除</text><!--entity v1--><rect fill="#FEFECE" filter="url(#fvzgidkm44i6u)" height="25.1201" style="stroke: #000000; stroke-width: 1.5;" width="76" x="470" y="38"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="56" x="480" y="57.0439">日程视图</text><!--entity v2--><rect fill="#FEFECE" filter="url(#fvzgidkm44i6u)" height="25.1201" style="stroke: #000000; stroke-width: 1.5;" width="76" x="470" y="98"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="56" x="480" y="117.0439">一周视图</text><!--entity start--><rect fill="#FEFECE" filter="url(#fvzgidkm44i6u)" height="25.1201" style="stroke: #000000; stroke-width: 1.5;" width="90" x="320" y="248"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="70" x="330" y="267.0439">番茄钟启动</text><!--entity stop--><rect fill="#FEFECE" filter="url(#fvzgidkm44i6u)" height="25.1201" style="stroke: #000000; stroke-width: 1.5;" width="90" x="320" y="308"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="70" x="330" y="327.0439">番茄钟停止</text><!--entity bonus--><rect fill="#FEFECE" filter="url(#fvzgidkm44i6u)" height="25.1201" style="stroke: #000000; stroke-width: 1.5;" width="76" x="327" y="368"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="56" x="337" y="387.0439">增加奖励</text><!--entity punish--><rect fill="#FEFECE" filter="url(#fvzgidkm44i6u)" height="25.1201" style="stroke: #000000; stroke-width: 1.5;" width="76" x="327" y="428"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="56" x="337" y="447.0439">减少奖励</text><!--link sub1 to task--><path d="M80.5521,217.986 C108.504,201.756 157.245,173.454 187.449,155.917 " fill="none" id="sub1-task" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="192.131,153.198,182.3392,154.2566,187.8067,155.708,186.3552,161.1755,192.131,153.198" style="stroke: #A80036; stroke-width: 1.0;"/><!--link sub1 to clock--><path d="M80.5521,243.014 C108.504,259.244 157.245,287.546 187.449,305.083 " fill="none" id="sub1-clock" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="192.131,307.802,186.3552,299.8245,187.8067,305.292,182.3392,306.7434,192.131,307.802" style="stroke: #A80036; stroke-width: 1.0;"/><!--link task to add--><path d="M229.7,127.745 C249.194,109.807 286.317,76.421 320,50.5 C326.31,45.644 333.355,40.66 339.925,36.183 " fill="none" id="task-add" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="344.383,33.173,334.6858,34.8948,340.2393,35.9712,339.1629,41.5247,344.383,33.173" style="stroke: #A80036; stroke-width: 1.0;"/><!--link task to view--><path d="M247.026,127.922 C270.706,118.322 303.372,105.079 328.166,95.027 " fill="none" id="task-view" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="333.015,93.061,323.1715,92.735,328.3812,94.9394,326.1769,100.1491,333.015,93.061" style="stroke: #A80036; stroke-width: 1.0;"/><!--link task to edit--><path d="M253.347,140.5 C274.196,140.5 300.24,140.5 321.822,140.5 " fill="none" id="task-edit" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="326.922,140.5,317.922,136.5,321.922,140.5,317.922,144.5,326.922,140.5" style="stroke: #A80036; stroke-width: 1.0;"/><!--link task to del--><path d="M247.026,153.078 C270.706,162.678 303.372,175.921 328.166,185.973 " fill="none" id="task-del" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="333.015,187.939,326.1769,180.8509,328.3812,186.0606,323.1715,188.265,333.015,187.939" style="stroke: #A80036; stroke-width: 1.0;"/><!--link view to v1--><path d="M403.046,72.618 C422.001,68.585 445.157,63.658 464.799,59.479 " fill="none" id="view-v1" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="469.712,58.434,460.0768,56.3937,464.8214,59.4741,461.741,64.2187,469.712,58.434" style="stroke: #A80036; stroke-width: 1.0;"/><!--link view to v2--><path d="M403.046,88.382 C422.001,92.415 445.157,97.342 464.799,101.521 " fill="none" id="view-v2" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="469.712,102.566,461.741,96.7813,464.8214,101.5259,460.0768,104.6063,469.712,102.566" style="stroke: #A80036; stroke-width: 1.0;"/><!--link clock to start--><path d="M247.026,307.922 C270.706,298.322 303.372,285.079 328.166,275.027 " fill="none" id="clock-start" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="333.015,273.061,323.1715,272.735,328.3812,274.9394,326.1769,280.1491,333.015,273.061" style="stroke: #A80036; stroke-width: 1.0;"/><!--link clock to stop--><path d="M260.004,320.5 C277.147,320.5 296.875,320.5 314.509,320.5 " fill="none" id="clock-stop" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="319.91,320.5,310.91,316.5,314.91,320.5,310.91,324.5,319.91,320.5" style="stroke: #A80036; stroke-width: 1.0;"/><!--link clock to bonus--><path d="M247.026,333.078 C270.706,342.678 303.372,355.921 328.166,365.9728 " fill="none" id="clock-bonus" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="333.015,367.9386,326.1772,360.8502,328.3813,366.06,323.1715,368.2641,333.015,367.9386" style="stroke: #A80036; stroke-width: 1.0;"/><!--link clock to punish--><path d="M229.7,333.255 C249.194,351.193 286.317,384.5794 320,410.5 C326.31,415.3562 333.355,420.3403 339.925,424.8167 " fill="none" id="clock-punish" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="344.383,427.8268,339.1633,419.4749,340.2394,425.0284,334.6859,426.1046,344.383,427.8268" style="stroke: #A80036; stroke-width: 1.0;"/><!--
+@startuml chap4-task
+
+left to right direction
+
+card 日程管理模块 as sub1
+
+card 任务管理 as task
+card 番茄钟启停 as clock
+
+sub1 - -> task
+sub1 - -> clock
+
+card 任务添加 as add
+card 任务查看 as view
+card 任务编辑 as edit
+card 任务删除 as del
+
+task - -> add
+task - -> view
+task - -> edit
+task - -> del
+
+card 日程视图 as v1
+card 一周视图 as v2
+
+view - -> v1
+view - -> v2
+
+card 番茄钟启动 as start
+card 番茄钟停止 as stop
+card 增加奖励 as bonus
+card 减少奖励 as punish
+
+clock - -> start
+clock - -> stop
+clock - -> bonus
+clock - -> punish
+
+@enduml
+
+PlantUML version 1.2019.06(Sat May 25 01:10:25 CST 2019)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 1.8.0_212-b10
+Operating System: Windows 10
+OS Version: 10.0
+Default Encoding: GBK
+Language: en
+Country: US
+--></g></svg>

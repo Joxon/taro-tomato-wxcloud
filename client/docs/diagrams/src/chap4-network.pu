@@ -2,7 +2,7 @@
 
 top to bottom direction
 
-cloud 腾讯云服务资源 {
+rectangle 腾讯云服务资源 {
   database "数据库\n（用户档案数据）" as db
   storage "静态存储\n（图片视频等\n多媒体数据）" as ss
   card "云函数\n（小程序后端API）" as apis
@@ -10,12 +10,12 @@ cloud 腾讯云服务资源 {
   apis <-up-> ss
 }
 
-cloud 小程序分发网络 {
+rectangle 小程序分发网络 {
   card 小程序前端代码 as fe
 }
 
 actor "Android\n微信用户" as aUser
-actor "IOS\n微信用户" as iUser
+actor "iOS\n微信用户" as iUser
 aUser <-up-> fe
 aUser <-up-> apis
 iUser <-up-> fe
